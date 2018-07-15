@@ -1,0 +1,19 @@
+Package: rbal
+Type: Package
+Title: Implementation of Residual Balancing Weights for Marginal Structural Models
+Version: 0.1.0
+Authors@R: person("Xiang", "Zhou", email = "xiang_zhou@fas.harvard.edu",
+  role = c("aut", "cre"))
+Description: Residual balancing is an efficient and robust method of constructing
+  weights for marginal structural models, which can be used to estimate marginal
+  effects of time-varying treatments and also controlled direct/mediator effects in
+  causal mediation analysis. This package provides two functions, rbtvt() and rbmed(),
+  that produce residual balancing weights for analyses of time-varying treatments and
+  causal mediation respectively.
+Depends:
+    R (>= 3.3.2),
+    stats
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
