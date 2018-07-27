@@ -39,6 +39,20 @@ rbmed <- function(treatment, mediator, zmodels, baseline_x, base_weights,
   # match call
   cl <- match.call()
 
+  # check missing arguments
+  if(missing(treatment)) stop("treatment must be provided.")
+  if(missing(mediator)) stop("mediator must be provided.")
+  if(missing(zmodels)) stop("zmodels must be provided.")
+  if(missing(data)) stop("data must be provided.")
+
+  # check xmodels and data type
+  if(!is.list(zmodels)) stop("zmodels must be a list.")
+  if(!all(unlist(lapply(zmodels, inherits, "lm")))){
+    stop("Each element of zmodels must be an object of class `lm`")
+  }
+  if(!is.data.frame(data)) stop("data must be a data.frame.")
+  n <- nrow(data)
+
   # treatment name
   aname <- deparse(substitute(treatment))
   mname <- deparse(substitute(mediator))
@@ -47,9 +61,14 @@ rbmed <- function(treatment, mediator, zmodels, baseline_x, base_weights,
   a <- eval(substitute(treatment), data, parent.frame())
   m <- eval(substitute(mediator), data, parent.frame())
 
+  # check lengths of treatment and mediator
+  if(length(a) != n) stop("treatment must have the same length as data.")
+  if(length(m) != n) stop("mediator must have the same length as data.")
+
   # base weights
-  if(missing(base_weights)) bweights <- rep(1, nrow(data)) else{
+  if(missing(base_weights)) bweights <- rep(1, n) else{
     bweights <- eval(substitute(base_weights), data, parent.frame())
+    if(length(bweights) != n) stop("base_weights must have the same length as data.")
   }
 
   # construct res_prods for baseline confounders

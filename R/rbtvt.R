@@ -45,15 +45,34 @@ rbtvt <- function(exposure, xmodels, id, time, base_weights, data,
     # match call
     cl <- match.call()
 
+    # check missing arguments
+    if(missing(exposure)) stop("exposure must be provided.")
+    if(missing(xmodels)) stop("xmodels must be provided.")
+    if(missing(id)) stop("id must be provided.")
+    if(missing(time)) stop("time must be provided.")
+    if(missing(data)) stop("data must be provided.")
+
+    # check xmodels and data type
+    if(!is.list(xmodels)) stop("xmodels must be a list.")
+    if(!all(unlist(lapply(xmodels, inherits, "lm")))){
+      stop("Each element of xmodels must be an object of class `lm`")
+    }
+    if(!is.data.frame(data)) stop("data must be a data.frame.")
+    n <- nrow(data)
+
     # exposure name
     aname <- deparse(substitute(exposure))
 
     # extract input variables
-    a <- eval(substitute(exposure), data, parent.frame())
+    exposure <- eval(substitute(exposure), data, parent.frame())
     id <- eval(substitute(id), data, parent.frame())
     time <- eval(substitute(time), data, parent.frame())
 
-    if(length(unique(id)) * length(unique(time)) != nrow(data)){
+    # check lengths of exposure, id, and time
+    stopifnot(length(exposure)==n, length(id)==n, length(time)==n)
+
+    # check if number of units * number of times equals n
+    if(length(unique(id)) * length(unique(time)) != n){
       stop("Data must be in long format where # rows equals # units times # periods.")
     }
 
@@ -63,11 +82,12 @@ rbtvt <- function(exposure, xmodels, id, time, base_weights, data,
     # base weights
     if(missing(base_weights)) bweights <- rep(1, sum(unique_pos)) else{
       bweights <- eval(substitute(base_weights), data, parent.frame())
+      if(length(bweights) != n) stop("base_weights must have the same length as data.")
       bweights <- bweights[unique_pos]
     }
 
     # balancing conditions long format
-    res_prods <- Reduce(cbind, lapply(xmodels, rmat, d = a, dname = aname))
+    res_prods <- Reduce(cbind, lapply(xmodels, rmat, d = exposure, dname = aname))
 
     # res prods in wide format
     res_prods <- data.frame(res_prods[order(id), ], check.names = FALSE)
