@@ -1,7 +1,7 @@
-Package: rbal
+Package: rbw
 Type: Package
 Title: Implementation of Residual Balancing Weights for Marginal Structural Models
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Xiang", "Zhou", email = "xiang_zhou@fas.harvard.edu",
   role = c("aut", "cre"))
 Description: Residual balancing is an efficient and robust method of constructing
@@ -16,6 +16,6 @@ Depends:
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
-URL: http://github.com/xiangzhou09/rbal
-BugReports: http://github.com/xiangzhou09/rbal
+RoxygenNote: 6.1.0
+URL: http://github.com/xiangzhou09/rbw
+BugReports: http://github.com/xiangzhou09/rbw
