@@ -1,6 +1,6 @@
 #' Residual Balancing Weights for Causal Mediation Analysis
 #'
-#' \code{rbmed} is a function that produces residual balancing weights for
+#' \code{rbwMed} is a function that produces residual balancing weights for
 #' causal mediation analysis. The weights can be used to fit marginal
 #' structural models for the joint effects of the treatment and a mediator.
 #'
@@ -10,7 +10,7 @@
 #'   post-treatment confounders of the mediator-outcome relationship.
 #' @param baseline_x Expression for a set of baseline confounders. .
 #' @inheritParams eb2
-#' @inheritParams rbtvt
+#' @inheritParams rbwPanel
 #'
 #' @return A list containing the results.
 #'  \item{weights}{A vector of residual balancing weights.}
@@ -18,6 +18,7 @@
 #'  \item{eb_out}{Results from calling \code{\link{eb2}} function}
 #'  \item{call}{The matched call.}
 #' @export
+#'
 #' @examples
 #' # models for post-treatment confounders
 #' m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
@@ -28,12 +29,11 @@
 #'   hispanic +urban + educ_mom + num_sibs + college, data = education)
 #'
 #' # residual balancing weights
-#' rbmed_fit <- rbmed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
+#' rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
 #'   zmodels = list(m1, m2, m3), base_weights = weights, data = education)
-#' summary(rbmed_fit$weights)
+#' summary(rbwMed_fit$weights)
 
-
-rbmed <- function(treatment, mediator, zmodels, baseline_x, base_weights,
+rbwMed <- function(treatment, mediator, zmodels, baseline_x, base_weights,
                   data, max_iter = 500, print_level = 1, tol = 1e-3) {
 
   # match call

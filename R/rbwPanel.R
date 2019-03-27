@@ -1,6 +1,6 @@
 #' Residual Balancing Weights for Analyzing Time-varying Treatments
 #'
-#' \code{rbtvt} is a function that produces residual balancing weights for
+#' \code{rbwPanel} is a function that produces residual balancing weights for
 #' estimating the marginal effects of time-varying treatments. The user supplies
 #' a long format data frame (each row being a unit-period) and a list of
 #' fitted model objects for time-varying confounders.
@@ -20,26 +20,34 @@
 #'  \item{eb_out}{Results from calling \code{\link{eb2}} function}
 #'  \item{call}{The matched call.}
 #' @export
+#'
 #' @examples
+#'
 #' # models for time-varying confounders
+#'
 #' m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
-#'   data = campaign)
+#' data = campaign_long)
 #' m2 <- lm(undother ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
-#'   data = campaign)
+#' data = campaign_long)
 #'
-#' # models for baseline confounders
-#' m3 <- lm(office ~ 1, data = campaign)
-#' m4 <- lm(deminc ~ 1, data = campaign)
-#'
-#' xmodels <- list(m1, m2, m3, m4)
+#' xmodels <- list(m1, m2)
 #'
 #' # residual balancing weights
-#' rbtvt_fit <- rbtvt(exposure = d.gone.neg, xmodels = xmodels, id = id,
-#'   time = week, data = campaign)
-#' summary(rbtvt_fit$weights)
+#' fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels, id = id,
+#' time = week, data = campaign_long)
+#'
+#' summary(fit$weights)
+#'
+#' # merge weights into wide-format data
+#' campaign_wide2 <- merge(campaign_wide, fit$weights, by = "id")
+#'
+#' # fit marginal structural models
+#' rbw_design <- survey::svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
+#'
+#' msm_rbw <- survey::svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
+#'  design = rbw_design)
 
-
-rbtvt <- function(exposure, xmodels, id, time, base_weights, data,
+rbwPanel <- function(exposure, xmodels, id, time, base_weights, data,
                   max_iter = 500, print_level = 1, tol = 1e-3) {
 
     # match call
