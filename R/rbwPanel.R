@@ -3,7 +3,10 @@
 #' \code{rbwPanel} is a function that produces residual balancing weights for
 #' estimating the marginal effects of time-varying treatments. The user supplies
 #' a long format data frame (each row being a unit-period) and a list of
-#' fitted model objects for time-varying confounders.
+#' fitted model objects for time-varying confounders. In the current implementation,
+#' the residuals of a time-varying covariate \eqn{X_t} are balanced across both current
+#' treatment \eqn{D_t} and the regressors of \eqn{X_t}.
+#'
 #'
 #' @param exposure Expression for the exposure variable.
 #' @param xmodels A list of fitted \code{lm} or \code{glm} objects for
