@@ -14,7 +14,6 @@ Depends:
     R (>= 3.3.0),
     stats
 Suggests:
-    dplyr,
     survey
 License: GPL (>= 3)
 Encoding: UTF-8
