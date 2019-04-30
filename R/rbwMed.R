@@ -45,10 +45,10 @@ rbwMed <- function(treatment, mediator, zmodels, baseline_x, base_weights,
   if(missing(zmodels)) stop("zmodels must be provided.")
   if(missing(data)) stop("data must be provided.")
 
-  # check xmodels and data type
+  # check zmodels and data type
   if(!is.list(zmodels)) stop("zmodels must be a list.")
   if(!all(unlist(lapply(zmodels, inherits, "lm")))){
-    stop("Each element of zmodels must be an object of class `lm`")
+    stop("Each element of zmodels must be an object of class `glm` or `lm`")
   }
   if(!is.data.frame(data)) stop("data must be a data.frame.")
   n <- nrow(data)
