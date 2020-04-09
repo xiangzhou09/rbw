@@ -4,22 +4,31 @@
 \alias{rbwPanel}
 \title{Residual Balancing Weights for Analyzing Time-varying Treatments}
 \usage{
-rbwPanel(exposure, xmodels, id, time, base_weights, data, max_iter = 500,
-  print_level = 1, tol = 0.001)
+rbwPanel(
+  exposure,
+  xmodels,
+  id,
+  time,
+  data,
+  base_weights,
+  max_iter = 200,
+  print_level = 1,
+  tol = 1e-04
+)
 }
 \arguments{
-\item{exposure}{Expression for the exposure variable.}
+\item{exposure}{Symbol for the exposure/treatment variable.}
 
 \item{xmodels}{A list of fitted \code{lm} or \code{glm} objects for
 time-varying confounders.}
 
-\item{id}{Expression for the unit id variable.}
+\item{id}{Symbol for the unit id variable.}
 
-\item{time}{Expression for the time variable.}
+\item{time}{Symbol for the time variable.}
 
-\item{base_weights}{Expression for base weights (optional).}
+\item{data}{A data frame containing all variables in the model.}
 
-\item{data}{A data frame containing the variables in the model.}
+\item{base_weights}{(Optional) Symbol for base weights.}
 
 \item{max_iter}{Maximum number of iterations for Newton's method.}
 
@@ -36,7 +45,7 @@ A list containing the results.
  \item{call}{The matched call.}
 }
 \description{
-\code{rbwPanel} is a function that produces residual balancing weights for
+\code{rbwPanel} is a function that produces residual balancing weights (rbw) for
 estimating the marginal effects of time-varying treatments. The user supplies
 a long format data frame (each row being a unit-period) and a list of
 fitted model objects for time-varying confounders. In the current implementation,

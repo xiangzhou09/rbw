@@ -5,7 +5,7 @@
 \title{Function for Generating Minimum Entropy Weights Subject to a Set of Balancing
   Constraints}
 \usage{
-eb2(C, M, Q, Z = rep(0, ncol(C)), max_iter, tol, print_level)
+eb2(C, M, Q, Z = rep(0, ncol(C)), max_iter = 200, tol = 1e-04, print_level = 2)
 }
 \arguments{
 \item{C}{A constraint matrix.}

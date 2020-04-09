@@ -26,7 +26,7 @@
 #' @import stats
 #' @export
 
-eb2 <- function(C, M, Q, Z = rep(0, ncol(C)), max_iter, tol, print_level) {
+eb2 <- function(C, M, Q, Z = rep(0, ncol(C)), max_iter = 200, tol = 1e-4, print_level = 2) {
 
   converged <- FALSE
 

@@ -4,22 +4,31 @@
 \alias{rbwMed}
 \title{Residual Balancing Weights for Causal Mediation Analysis}
 \usage{
-rbwMed(treatment, mediator, zmodels, baseline_x, base_weights, data,
-  max_iter = 500, print_level = 1, tol = 0.001)
+rbwMed(
+  treatment,
+  mediator,
+  zmodels,
+  data,
+  baseline_x,
+  base_weights,
+  max_iter = 200,
+  print_level = 1,
+  tol = 1e-04
+)
 }
 \arguments{
-\item{treatment}{Expression for the treatment variable.}
+\item{treatment}{Symbol for the treatment variable.}
 
-\item{mediator}{Expression for the mediator variable.}
+\item{mediator}{Symbol for the mediator variable.}
 
 \item{zmodels}{A list of fitted \code{lm} or \code{glm} objects for
 post-treatment confounders of the mediator-outcome relationship.}
 
-\item{baseline_x}{Expression for a set of baseline confounders. .}
+\item{data}{A data frame containing all variables in the model.}
 
-\item{base_weights}{Expression for base weights (optional).}
+\item{baseline_x}{(Optional) Expression for a set of baseline confounders.}
 
-\item{data}{A data frame containing the variables in the model.}
+\item{base_weights}{(Optional) Symbol for base weights.}
 
 \item{max_iter}{Maximum number of iterations for Newton's method.}
 

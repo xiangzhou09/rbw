@@ -3,4 +3,5 @@
 export(eb2)
 export(rbwMed)
 export(rbwPanel)
+import(rlang)
 import(stats)

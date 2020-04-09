@@ -1,20 +1,19 @@
 #' Residual Balancing Weights for Analyzing Time-varying Treatments
 #'
-#' \code{rbwPanel} is a function that produces residual balancing weights for
+#' \code{rbwPanel} is a function that produces residual balancing weights (rbw) for
 #' estimating the marginal effects of time-varying treatments. The user supplies
 #' a long format data frame (each row being a unit-period) and a list of
 #' fitted model objects for time-varying confounders. In the current implementation,
 #' the residuals of a time-varying covariate \eqn{X_t} are balanced across both current
 #' treatment \eqn{D_t} and the regressors of \eqn{X_t}.
 #'
-#'
-#' @param exposure Expression for the exposure variable.
+#' @param exposure Symbol for the exposure/treatment variable.
 #' @param xmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   time-varying confounders.
-#' @param id Expression for the unit id variable.
-#' @param time Expression for the time variable.
-#' @param base_weights Expression for base weights (optional).
-#' @param data A data frame containing the variables in the model.
+#' @param id Symbol for the unit id variable.
+#' @param time Symbol for the time variable.
+#' @param data A data frame containing all variables in the model.
+#' @param base_weights (Optional) Symbol for base weights.
 #' @inheritParams eb2
 #'
 #' @return A list containing the results.
@@ -23,7 +22,7 @@
 #'  \item{eb_out}{Results from calling \code{\link{eb2}} function}
 #'  \item{call}{The matched call.}
 #' @export
-#'
+#' @import rlang
 #' @examples
 #'
 #' # models for time-varying confounders
@@ -50,59 +49,59 @@
 #' msm_rbw <- survey::svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
 #'  design = rbw_design)
 
-rbwPanel <- function(exposure, xmodels, id, time, base_weights, data,
-                  max_iter = 500, print_level = 1, tol = 1e-3) {
+rbwPanel <- function(exposure, xmodels, id, time, data,
+                     base_weights, max_iter = 200,
+                     print_level = 1, tol = 1e-4) {
 
     # match call
     cl <- match.call()
 
     # check missing arguments
-    if(missing(exposure)) stop("exposure must be provided.")
-    if(missing(xmodels)) stop("xmodels must be provided.")
-    if(missing(id)) stop("id must be provided.")
-    if(missing(time)) stop("time must be provided.")
-    if(missing(data)) stop("data must be provided.")
+    if(missing(exposure)) stop("'exposure' must be provided.")
+    if(missing(xmodels)) stop("'xmodels' must be provided.")
+    if(missing(id)) stop("'id' must be provided.")
+    if(missing(time)) stop("'time' must be provided.")
+    if(missing(data)) stop("'data' must be provided.")
 
     # check xmodels and data type
     if(!is.list(xmodels)) stop("xmodels must be a list.")
     if(!all(unlist(lapply(xmodels, inherits, "lm")))){
-      stop("Each element of xmodels must be an object of class `lm`")
+      stop("Each element of xmodels must inherit the class 'lm'")
     }
-    if(!is.data.frame(data)) stop("data must be a data.frame.")
+    if(!is.data.frame(data)) stop("'data' must be a data.frame.")
     n <- nrow(data)
 
     # exposure name
-    aname <- deparse(substitute(exposure))
+    aname <- as_label(enquo(exposure))
 
     # extract input variables
-    exposure <- eval(substitute(exposure), data, parent.frame())
-    id <- eval(substitute(id), data, parent.frame())
-    time <- eval(substitute(time), data, parent.frame())
+    a <- eval_tidy(enquo(exposure), data)
+    id <- eval_tidy(enquo(id), data)
+    time <- eval_tidy(enquo(time), data)
 
     # check lengths of exposure, id, and time
-    stopifnot(length(exposure)==n, length(id)==n, length(time)==n)
-
-    # check if number of units * number of times equals n
-    if(length(unique(id)) * length(unique(time)) != n){
-      stop("Data must be in long format where # rows equals # units times # periods.")
-    }
+    stopifnot(length(a)==n, length(id)==n, length(time)==n)
 
     # unique id positions
     unique_pos <- !duplicated(id)
 
     # base weights
-    if(missing(base_weights)) bweights <- rep(1, sum(unique_pos)) else{
-      bweights <- eval(substitute(base_weights), data, parent.frame())
-      if(length(bweights) != n) stop("base_weights must have the same length as data.")
+    if(missing(base_weights)){
+      bweights <- rep(1, sum(unique_pos))
+    } else{
+      bweights <- eval_tidy(enquo(base_weights), data)
+      if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
       bweights <- bweights[unique_pos]
     }
 
-    # balancing conditions long format
-    res_prods <- Reduce(cbind, lapply(xmodels, rmat, d = exposure, dname = aname))
-
-    # res prods in wide format
-    res_prods <- data.frame(res_prods[order(id), ], check.names = FALSE)
-    res_prods_wide <- Reduce(cbind, split(res_prods, time[order(id)]))
+    # balancing conditions long and wide formats
+    res_prods <- Reduce(cbind, lapply(xmodels, rmat, a = a, aname = aname))
+    tmp <- split(data.frame(id, res_prods, check.names = FALSE), time)
+    for(i in seq_along(tmp)){
+      names(tmp[[i]])[-1] <- paste(names(tmp[[i]])[-1], i, sep = "_t")
+    }
+    res_prods_wide <- as.matrix(Reduce(full_merge, tmp)[-1])
+    res_prods_wide[is.na(res_prods_wide)] <- 0
 
     # extract linearly independent columns
     res_prods_indep <- pivot(res_prods_wide)

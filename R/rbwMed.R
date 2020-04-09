@@ -4,11 +4,11 @@
 #' causal mediation analysis. The weights can be used to fit marginal
 #' structural models for the joint effects of the treatment and a mediator.
 #'
-#' @param treatment Expression for the treatment variable.
-#' @param mediator Expression for the mediator variable.
+#' @param treatment Symbol for the treatment variable.
+#' @param mediator Symbol for the mediator variable.
 #' @param zmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   post-treatment confounders of the mediator-outcome relationship.
-#' @param baseline_x Expression for a set of baseline confounders. .
+#' @param baseline_x (Optional) Expression for a set of baseline confounders.
 #' @inheritParams eb2
 #' @inheritParams rbwPanel
 #'
@@ -33,59 +33,63 @@
 #'   zmodels = list(m1, m2, m3), base_weights = weights, data = education)
 #' summary(rbwMed_fit$weights)
 
-rbwMed <- function(treatment, mediator, zmodels, baseline_x, base_weights,
-                  data, max_iter = 500, print_level = 1, tol = 1e-3) {
+rbwMed <- function(treatment, mediator, zmodels, data,
+                   baseline_x, base_weights,
+                   max_iter = 200, print_level = 1, tol = 1e-4) {
 
   # match call
   cl <- match.call()
+  print(cl)
 
   # check missing arguments
-  if(missing(treatment)) stop("treatment must be provided.")
-  if(missing(mediator)) stop("mediator must be provided.")
-  if(missing(zmodels)) stop("zmodels must be provided.")
-  if(missing(data)) stop("data must be provided.")
+  if(missing(treatment)) stop("'treatment' must be provided.")
+  if(missing(mediator)) stop("'mediator' must be provided.")
+  if(missing(zmodels)) stop("'zmodels' must be provided.")
+  if(missing(data)) stop("'data' must be provided.")
 
   # check zmodels and data type
-  if(!is.list(zmodels)) stop("zmodels must be a list.")
+  if(!is.list(zmodels)) stop("'zmodels' must be a list.")
   if(!all(unlist(lapply(zmodels, inherits, "lm")))){
-    stop("Each element of zmodels must be an object of class `glm` or `lm`")
+    stop("Each element of zmodels must inherit the class 'lm'")
   }
-  if(!is.data.frame(data)) stop("data must be a data.frame.")
+  if(!is.data.frame(data)) stop("'data' must be a data.frame.")
   n <- nrow(data)
 
   # treatment name
-  aname <- deparse(substitute(treatment))
-  mname <- deparse(substitute(mediator))
+  aname <- as_label(enquo(treatment))
+  mname <- as_label(enquo(mediator))
 
   # extract input variables
-  a <- eval(substitute(treatment), data, parent.frame())
-  m <- eval(substitute(mediator), data, parent.frame())
+  a <- eval_tidy(enquo(treatment), data)
+  m <- eval_tidy(enquo(mediator), data)
 
   # check lengths of treatment and mediator
   if(length(a) != n) stop("treatment must have the same length as data.")
   if(length(m) != n) stop("mediator must have the same length as data.")
 
   # base weights
-  if(missing(base_weights)) bweights <- rep(1, n) else{
-    bweights <- eval(substitute(base_weights), data, parent.frame())
-    if(length(bweights) != n) stop("base_weights must have the same length as data.")
+  if(missing(base_weights)){
+    bweights <- rep(1, n)
+  } else{
+    bweights <- eval_tidy(enquo(base_weights), data)
+    if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
   }
 
   # construct res_prods for baseline confounders
   if(!missing(baseline_x)) {
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
-    vars <- eval(substitute(baseline_x), nl, parent.frame())
+    vars <- eval_tidy(enquo(baseline_x), nl, empty_env())
     x <- data[, vars, drop = FALSE]
     xmodels <- lapply(x, function(y) lm(y ~ 1, weights = bweights))
-    res_prods_xa <- Reduce(cbind, lapply(xmodels, rmat, d = a, dname = aname))
-    res_prods_xm <- Reduce(cbind, lapply(xmodels, rmat, d = m, dname = mname))
+    res_prods_xa <- Reduce(cbind, lapply(xmodels, rmat, a, aname))
+    res_prods_xm <- Reduce(cbind, lapply(xmodels, rmat, m, mname))
   } else{
     res_prods_xa <- res_prods_xm <- NULL
   }
 
   # construct res_prods for posttreatment confounders
-  res_prods_zm <- Reduce(cbind, lapply(zmodels, rmat, d = m, dname = mname))
+  res_prods_zm <- Reduce(cbind, lapply(zmodels, rmat, m, mname))
 
   # construct res_prods for both x and z
   res_prods <- cbind(res_prods_xa, res_prods_xm, res_prods_zm)
