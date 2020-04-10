@@ -45,23 +45,19 @@ library(rbw)
 library(survey)
 
 # models for time-varying confounders
-m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
-data = campaign_long)
-m2 <- lm(undother ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
-data = campaign_long)
+m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week), data = campaign_long)
+m2 <- lm(undother ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week), data = campaign_long)
 xmodels <- list(m1, m2)
 
 # residual balancing weights
-rbwPanel_fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels,
-                         id = id, time = week, data = campaign_long)
+rbwPanel_fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels, id = id, time = week, data = campaign_long)
 
 # merge weights into wide-format data
 campaign_wide2 <- merge(campaign_wide, rbwPanel_fit$weights, by = "id")
 
 # fit a marginal structural model (adjusting for baseline confounders)
 rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
-msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
-design = rbw_design)
+msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office, design = rbw_design)
 summary(msm_rbw)
 ```
 
@@ -71,17 +67,16 @@ In causal mediation analysis, the `rbwMed()` function can be used to construct r
 
 ```{r, message = FALSE}
 # models for post-treatment confounders
-m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, data = education)
-m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, data = education)
-m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
-  hispanic +urban + educ_mom + num_sibs + college, data = education)
+m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father + hispanic + urban + educ_mom +
+           num_sibs + college, weights = weights, data = education)
+m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father + hispanic + urban + educ_mom +
+           num_sibs + college, weights = weights, data = education)
+m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father + hispanic +urban + educ_mom +
+           num_sibs + college, weights = weights, data = education)
 
 # residual balancing weights
-rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
-                     baseline_x = male:num_sibs, zmodels = list(m1, m2, m3),
-                     base_weights = weights, data = education)
+rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
+                     zmodels = list(m1, m2, m3), base_weights = weights, data = education)
 
 # attach residual balancing weights to data
 education$rbw <- rbwMed_fit$weights
