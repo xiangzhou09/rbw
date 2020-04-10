@@ -41,6 +41,7 @@ for 113 Democratic candidates in US Senate and Gubernatorial elections.
 library(rbw)
 # install.packages("survey")
 library(survey)
+#> Warning: package 'survey' was built under R version 3.6.3
 
 # models for time-varying confounders
 m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week), data = campaign_long)
