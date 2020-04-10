@@ -1,0 +1,94 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# rbw: Residual Balancing Weights for Marginal Structural Models
+
+Residual balancing is a method of constructing weights for marginal structural models, which can be used to estimate marginal effects of time-varying treatments and controlled direct/mediator effects in causal mediation analysis. Compared with inverse probablity-of-treatment weights (IPW), residual balancing weights tend to be more robust and more efficient, and are easier to use with continuous exposures. This package provides two main functions, `rbwPanel()` and `rbwMed()`, that produce residual balancing weights for analyzing time-varying treatments and causal mediation, respectively.
+
+**Main Reference**
+
+- Zhou, Xiang and Geoffrey T Wodtke. 2020. "[Residual Balancing: A Method of Constructing Weights for Marginal Structural Models](https://doi.org/10.1017/pan.2020.2)" Political Analysis.
+
+## Installation
+
+You can install the released version of localIV from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("rbw")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("xiangzhou09/rbw")
+```
+## Estimating Marginal Effects of Time-varying Treatments
+
+The `rbwpanel()` function constructs residual balancing weights for estimating marginal effects of time-varying treatments. The following example illustrates its use by estimating the effect of negative campaign advertising (`d.gone.neg`) on election outcomes (`demprcnt`) for 113 Democratic candidates in the 2006 US Senate and Gubernatorial elections. 
+
+```{r, message = FALSE}
+library(rbw)
+# install.packages("survey")
+library(survey)
+
+# models for time-varying confounders
+m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
+data = campaign_long)
+m2 <- lm(undother ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
+data = campaign_long)
+xmodels <- list(m1, m2)
+
+# residual balancing weights
+rbwPanel_fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels,
+                         id = id, time = week, data = campaign_long)
+
+# merge weights into wide-format data
+campaign_wide2 <- merge(campaign_wide, rbwPanel_fit$weights, by = "id")
+
+# fit a marginal structural model (adjusting for baseline confounders)
+rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
+msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
+design = rbw_design)
+summary(msm_rbw)
+```
+
+## Estimating Controlled Direct Effects (CDE)
+
+In causal mediation analysis, the `rbwMed()` function can be used to construct residual balancing weights for estimating the controlled direct effect or the controlled mediator effect with a marginal structural model. The following example illustrates its use by estimating the joint effects of college education (`college`) and socioeconomic status (`ses`) on depression at age 40 (`cesd40`) for a subsample of respondents in the National Longitudinal Survey of Youth, 1979.
+
+```{r, message = FALSE}
+# models for post-treatment confounders
+m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
+  hispanic + urban + educ_mom + num_sibs + college, data = education)
+m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father +
+  hispanic + urban + educ_mom + num_sibs + college, data = education)
+m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
+  hispanic +urban + educ_mom + num_sibs + college, data = education)
+
+# residual balancing weights
+rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
+                     baseline_x = male:num_sibs, zmodels = list(m1, m2, m3),
+                     base_weights = weights, data = education)
+
+# attach residual balancing weights to data
+education$rbw <- rbwMed_fit$weights
+
+# fit a marginal structural model
+rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
+msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
+summary(msm_rbw)
+```
+

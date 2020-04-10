@@ -1,8 +1,9 @@
 #' Residual Balancing Weights for Causal Mediation Analysis
 #'
 #' \code{rbwMed} is a function that produces residual balancing weights for
-#' causal mediation analysis. The weights can be used to fit marginal
-#' structural models for the joint effects of the treatment and a mediator.
+#' causal mediation analysis. The weights can be used to fit a marginal
+#' structural model for the joint effects of treatment and a mediator
+#' on the outcome of interest.
 #'
 #' @param treatment Symbol for the treatment variable.
 #' @param mediator Symbol for the mediator variable.
@@ -32,6 +33,16 @@
 #' rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
 #'   zmodels = list(m1, m2, m3), base_weights = weights, data = education)
 #' summary(rbwMed_fit$weights)
+#'
+#' # attach residual balancing weights to data
+#' education$rbw <- rbwMed_fit$weights
+#'
+#' # fit marginal structural model
+#' if(require(survey)){
+#'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
+#'   msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
+#'   summary(msm_rbw)
+#' }
 
 rbwMed <- function(treatment, mediator, zmodels, data,
                    baseline_x, base_weights,
@@ -39,7 +50,6 @@ rbwMed <- function(treatment, mediator, zmodels, data,
 
   # match call
   cl <- match.call()
-  print(cl)
 
   # check missing arguments
   if(missing(treatment)) stop("'treatment' must be provided.")

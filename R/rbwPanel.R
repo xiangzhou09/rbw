@@ -24,9 +24,7 @@
 #' @export
 #' @import rlang
 #' @examples
-#'
 #' # models for time-varying confounders
-#'
 #' m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
 #' data = campaign_long)
 #' m2 <- lm(undother ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
@@ -35,20 +33,21 @@
 #' xmodels <- list(m1, m2)
 #'
 #' # residual balancing weights
-#' fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels, id = id,
+#' rbwPanel_fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels, id = id,
 #' time = week, data = campaign_long)
 #'
-#' summary(fit$weights)
+#' summary(rbwPanel_fit$weights)
 #'
 #' # merge weights into wide-format data
-#' campaign_wide2 <- merge(campaign_wide, fit$weights, by = "id")
+#' campaign_wide2 <- merge(campaign_wide, rbwPanel_fit$weights, by = "id")
 #'
-#' # fit marginal structural models
-#' rbw_design <- survey::svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
-#'
-#' msm_rbw <- survey::svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
-#'  design = rbw_design)
-
+#' # fit a marginal structural model (adjusting for baseline confounders)
+#' if(require(survey)){
+#'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
+#'   msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
+#'   design = rbw_design)
+#'   summary(msm_rbw)
+#' }
 rbwPanel <- function(exposure, xmodels, id, time, data,
                      base_weights, max_iter = 200,
                      print_level = 1, tol = 1e-4) {
