@@ -6,7 +6,7 @@
 Residual balancing is a method of constructing weights for marginal
 structural models, which can be used to estimate marginal effects of
 time-varying treatments and controlled direct/mediator effects in causal
-mediation analysis. Compared with inverse probablity-of-treatment
+mediation analysis. Compared with inverse probability-of-treatment
 weights (IPW), residual balancing weights tend to be more robust and
 more efficient, and are easier to use with continuous exposures. This
 package provides two main functions, `rbwPanel()` and `rbwMed()`, that
@@ -21,7 +21,7 @@ and causal mediation, respectively.
 
 ## Installation
 
-You can install the released version of localIV from
+You can install the released version of rbw from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -102,10 +102,10 @@ In causal mediation analysis, the `rbwMed()` function can be used to
 construct residual balancing weights for estimating the controlled
 direct effect or the controlled mediator effect with a marginal
 structural model. The following example illustrates its use by
-estimating the joint effects of college education (`college`) and
-socioeconomic status (`ses`) on depression at age 40 (`cesd40`) for a
-subsample of respondents in the National Longitudinal Survey of Youth,
-1979.
+estimating the controlled direct effect of college education (`college`)
+on depression at age 40 (`cesd40`) at different levels of socioeconomic
+status (`ses`) for a subsample of respondents in the National
+Longitudinal Survey of Youth, 1979.
 
 ``` r
 # models for post-treatment confounders
@@ -120,8 +120,6 @@ m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
 rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
                      baseline_x = male:num_sibs, zmodels = list(m1, m2, m3),
                      base_weights = weights, data = education)
-#> rbwMed(treatment = college, mediator = ses, zmodels = list(m1, 
-#>     m2, m3), data = education, baseline_x = male:num_sibs, base_weights = weights)
 #> Entropy minimization converged within tolerance level
 
 # attach residual balancing weights to data
