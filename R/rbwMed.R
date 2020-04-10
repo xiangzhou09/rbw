@@ -1,15 +1,17 @@
 #' Residual Balancing Weights for Causal Mediation Analysis
 #'
 #' \code{rbwMed} is a function that produces residual balancing weights for
-#' causal mediation analysis. The weights can be used to fit a marginal
-#' structural model for the joint effects of treatment and a mediator
-#' on the outcome of interest.
+#' causal mediation analysis. The weights can be used to fit marginal
+#' structural models for the joint effects of the treatment and a mediator.
 #'
 #' @param treatment Symbol for the treatment variable.
 #' @param mediator Symbol for the mediator variable.
 #' @param zmodels A list of fitted \code{lm} or \code{glm} objects for
-#'   post-treatment confounders of the mediator-outcome relationship.
-#' @param baseline_x (Optional) Expression for a set of baseline confounders.
+#'   post-treatment confounders of the mediator-outcome relationship. If there's no
+#'   post-treatment confounder, set it to be \code{NULL}.
+#' @param baseline_x (Optional) Expression for a set of numeric-valued baseline confounders.
+#' @param interact A logical variable indicating whether covariates should also be balanced
+#'   against the treatment-mediator interaction term(s).
 #' @inheritParams eb2
 #' @inheritParams rbwPanel
 #'
@@ -31,7 +33,7 @@
 #'
 #' # residual balancing weights
 #' rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
-#'   zmodels = list(m1, m2, m3), base_weights = weights, data = education)
+#'   zmodels = list(m1, m2, m3), interact = TRUE, base_weights = weights, data = education)
 #' summary(rbwMed_fit$weights)
 #'
 #' # attach residual balancing weights to data
@@ -43,41 +45,32 @@
 #'   msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
 #'   summary(msm_rbw)
 #' }
-
 rbwMed <- function(treatment, mediator, zmodels, data,
-                   baseline_x, base_weights,
+                   baseline_x, interact = FALSE, base_weights,
                    max_iter = 200, print_level = 1, tol = 1e-4) {
 
   # match call
   cl <- match.call()
 
-  # check missing arguments
+  # check treatment and mediator
   if(missing(treatment)) stop("'treatment' must be provided.")
   if(missing(mediator)) stop("'mediator' must be provided.")
-  if(missing(zmodels)) stop("'zmodels' must be provided.")
-  if(missing(data)) stop("'data' must be provided.")
 
   # check zmodels and data type
-  if(!is.list(zmodels)) stop("'zmodels' must be a list.")
-  if(!all(unlist(lapply(zmodels, inherits, "lm")))){
-    stop("Each element of zmodels must inherit the class 'lm'")
+  if(missing(zmodels)) stop("'zmodels' must be provided.")
+  if(!is.null(zmodels)){
+    if(!is.list(zmodels)) stop("'zmodels' must be a list.")
+    if(!all(unlist(lapply(zmodels, inherits, "lm")))){
+      stop("Each element of zmodels must inherit the class 'lm'")
+    }
   }
-  if(!is.data.frame(data)) stop("'data' must be a data.frame.")
+
+  # check data
+  if(missing(data)) stop("'data' must be provided.")
+  if(!is.data.frame(data)) stop("'data' must be a data frame.")
   n <- nrow(data)
 
-  # treatment name
-  aname <- as_label(enquo(treatment))
-  mname <- as_label(enquo(mediator))
-
-  # extract input variables
-  a <- eval_tidy(enquo(treatment), data)
-  m <- eval_tidy(enquo(mediator), data)
-
-  # check lengths of treatment and mediator
-  if(length(a) != n) stop("treatment must have the same length as data.")
-  if(length(m) != n) stop("mediator must have the same length as data.")
-
-  # base weights
+  # check base weights
   if(missing(base_weights)){
     bweights <- rep(1, n)
   } else{
@@ -85,24 +78,35 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
   }
 
-  # construct res_prods for baseline confounders
+  # construct model matrix for treatment (without intercept)
+  a_mat <- eval_tidy(expr(model.matrix(~ !!ensym(treatment), data)))
+  a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
+
+  # construct model matrix for mediator (without intercept)
+  m_mat <- eval_tidy(expr(model.matrix(~ !!ensym(mediator), data)))
+  m <- `colnames<-`(m_mat[, -1, drop = FALSE], colnames(m_mat)[-1])
+
+  # construct xmodels for baseline confounders
   if(!missing(baseline_x)) {
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
     vars <- eval_tidy(enquo(baseline_x), nl, empty_env())
     x <- data[, vars, drop = FALSE]
     xmodels <- lapply(x, function(y) lm(y ~ 1, weights = bweights))
-    res_prods_xa <- Reduce(cbind, lapply(xmodels, rmat, a, aname))
-    res_prods_xm <- Reduce(cbind, lapply(xmodels, rmat, m, mname))
-  } else{
-    res_prods_xa <- res_prods_xm <- NULL
+  } else xmodels <- NULL
+
+  if(interact == TRUE){
+    am_mat <- eval_tidy(expr(model.matrix(~ (!!ensym(treatment)) * (!!ensym(mediator)), data)))
+    am <- `colnames<-`(am_mat[, -1, drop = FALSE], colnames(am_mat)[-1])
+    res_prods_xam <- Reduce(cbind, lapply(xmodels, rmat, am))
+    res_prods_zam <- Reduce(cbind, lapply(zmodels, rmat, am))
+    res_prods <- cbind(res_prods_xam, res_prods_zam)
+  } else {
+    res_prods_xa <- Reduce(cbind, lapply(xmodels, rmat, a))
+    res_prods_xm <- Reduce(cbind, lapply(xmodels, rmat, m))
+    res_prods_zm <- Reduce(cbind, lapply(zmodels, rmat, m))
+    res_prods <- cbind(res_prods_xa, res_prods_xm, res_prods_zm)
   }
-
-  # construct res_prods for posttreatment confounders
-  res_prods_zm <- Reduce(cbind, lapply(zmodels, rmat, m, mname))
-
-  # construct res_prods for both x and z
-  res_prods <- cbind(res_prods_xa, res_prods_xm, res_prods_zm)
 
   # extract linearly independent columns
   res_prods_indep <- pivot(res_prods)

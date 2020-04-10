@@ -70,16 +70,9 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     if(!is.data.frame(data)) stop("'data' must be a data.frame.")
     n <- nrow(data)
 
-    # exposure name
-    aname <- as_label(enquo(exposure))
-
-    # extract input variables
-    a <- eval_tidy(enquo(exposure), data)
-    id <- eval_tidy(enquo(id), data)
-    time <- eval_tidy(enquo(time), data)
-
-    # check lengths of exposure, id, and time
-    stopifnot(length(a)==n, length(id)==n, length(time)==n)
+    # extract id and time
+    id <- eval_tidy(ensym(id), data)
+    time <- eval_tidy(ensym(time), data)
 
     # unique id positions
     unique_pos <- !duplicated(id)
@@ -93,8 +86,12 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
       bweights <- bweights[unique_pos]
     }
 
+    # construct model matrix for treatment (without intercept)
+    a_mat <- eval_tidy(expr(model.matrix(~ !!ensym(exposure), data)))
+    a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
+
     # balancing conditions long and wide formats
-    res_prods <- Reduce(cbind, lapply(xmodels, rmat, a = a, aname = aname))
+    res_prods <- Reduce(cbind, lapply(xmodels, rmat, a))
     tmp <- split(data.frame(id, res_prods, check.names = FALSE), time)
     for(i in seq_along(tmp)){
       names(tmp[[i]])[-1] <- paste(names(tmp[[i]])[-1], i, sep = "_t")

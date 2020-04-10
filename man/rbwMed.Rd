@@ -10,6 +10,7 @@ rbwMed(
   zmodels,
   data,
   baseline_x,
+  interact = FALSE,
   base_weights,
   max_iter = 200,
   print_level = 1,
@@ -22,11 +23,15 @@ rbwMed(
 \item{mediator}{Symbol for the mediator variable.}
 
 \item{zmodels}{A list of fitted \code{lm} or \code{glm} objects for
-post-treatment confounders of the mediator-outcome relationship.}
+post-treatment confounders of the mediator-outcome relationship. If there's no
+post-treatment confounder, set it to be \code{NULL}.}
 
 \item{data}{A data frame containing all variables in the model.}
 
-\item{baseline_x}{(Optional) Expression for a set of baseline confounders.}
+\item{baseline_x}{(Optional) Expression for a set of numeric-valued baseline confounders.}
+
+\item{interact}{A logical variable indicating whether covariates should also be balanced
+against the treatment-mediator interaction term(s).}
 
 \item{base_weights}{(Optional) Symbol for base weights.}
 
@@ -46,9 +51,8 @@ A list containing the results.
 }
 \description{
 \code{rbwMed} is a function that produces residual balancing weights for
-causal mediation analysis. The weights can be used to fit a marginal
-structural model for the joint effects of treatment and a mediator
-on the outcome of interest.
+causal mediation analysis. The weights can be used to fit marginal
+structural models for the joint effects of the treatment and a mediator.
 }
 \examples{
 # models for post-treatment confounders
@@ -61,7 +65,7 @@ m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
 
 # residual balancing weights
 rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
-  zmodels = list(m1, m2, m3), base_weights = weights, data = education)
+  zmodels = list(m1, m2, m3), interact = TRUE, base_weights = weights, data = education)
 summary(rbwMed_fit$weights)
 
 # attach residual balancing weights to data

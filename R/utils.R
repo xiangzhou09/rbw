@@ -1,5 +1,7 @@
 utils::globalVariables(c("C", "M", "Q"))
 
+`%||%` <- function(a, b) if (!is.null(a)) a else b
+
 # extract independent columns from a matrix
 pivot <- function(mat, eps = 1e-10) {
   nonzero <- colSums(abs(mat) > eps) > 0
@@ -10,14 +12,13 @@ pivot <- function(mat, eps = 1e-10) {
 }
 
 # generate residual * H matrices
-rmat <- function(mod, a, aname) {
+rmat <- function(mod, a) {
   x <- model.frame(mod)[[1L]]
   xname <- names(model.frame(mod))[1L]
   pred <- model.matrix(mod)
   resid <- x - mod[["fitted.values"]]
-  if(is.factor(a)) a <- unclass(model.matrix(~a)[, -1])
   out <- cbind(resid * pred, resid * a)
-  colnames(out) <- paste0(xname, "_res*", c(colnames(pred), aname))
+  colnames(out) <- paste0(xname, "_res*", c(colnames(pred), colnames(a)))
   out
 }
 
