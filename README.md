@@ -110,11 +110,14 @@ Longitudinal Survey of Youth, 1979.
 ``` r
 # models for post-treatment confounders
 m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, data = education)
+           hispanic + urban + educ_mom + num_sibs + college,
+         weights = weights, data = education)
 m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, data = education)
+           hispanic + urban + educ_mom + num_sibs + college,
+         weights = weights, data = education)
 m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
-  hispanic +urban + educ_mom + num_sibs + college, data = education)
+           hispanic +urban + educ_mom + num_sibs + college,
+         weights = weights, data = education)
 
 # residual balancing weights
 rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
@@ -137,15 +140,15 @@ summary(msm_rbw)
 #> svydesign(ids = ~1, weights = ~rbw, data = education)
 #> 
 #> Coefficients:
-#>              Estimate Std. Error t value Pr(>|t|)   
-#> (Intercept)  0.001744   0.027747   0.063  0.94989   
-#> college     -0.106707   0.080956  -1.318  0.18758   
-#> ses         -0.364292   0.115741  -3.147  0.00166 **
-#> college:ses  0.410440   0.367830   1.116  0.26458   
+#>               Estimate Std. Error t value Pr(>|t|)   
+#> (Intercept) -0.0007527  0.0275409  -0.027  0.97820   
+#> college     -0.1055394  0.0810119  -1.303  0.19276   
+#> ses         -0.3587749  0.1143384  -3.138  0.00172 **
+#> college:ses  0.3939679  0.3662347   1.076  0.28214   
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> (Dispersion parameter for gaussian family taken to be 0.9790492)
+#> (Dispersion parameter for gaussian family taken to be 0.975618)
 #> 
 #> Number of Fisher Scoring iterations: 2
 ```
