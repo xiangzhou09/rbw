@@ -53,11 +53,11 @@ on the outcome of interest.
 \examples{
 # models for post-treatment confounders
 m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, data = education)
+  hispanic + urban + educ_mom + num_sibs + college, weights = weights, data = education)
 m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, data = education)
+  hispanic + urban + educ_mom + num_sibs + college, weights = weights, data = education)
 m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
-  hispanic +urban + educ_mom + num_sibs + college, data = education)
+  hispanic +urban + educ_mom + num_sibs + college, weights = weights, data = education)
 
 # residual balancing weights
 rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
@@ -67,7 +67,7 @@ summary(rbwMed_fit$weights)
 # attach residual balancing weights to data
 education$rbw <- rbwMed_fit$weights
 
-# marginal structural model
+# fit marginal structural model
 if(require(survey)){
   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
   msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)

@@ -70,7 +70,7 @@ summary(rbwPanel_fit$weights)
 # merge weights into wide-format data
 campaign_wide2 <- merge(campaign_wide, rbwPanel_fit$weights, by = "id")
 
-# fit a marginal structural model
+# fit a marginal structural model (adjusting for baseline confounders)
 if(require(survey)){
   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
   msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
