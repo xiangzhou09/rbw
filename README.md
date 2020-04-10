@@ -21,14 +21,8 @@ and causal mediation, respectively.
 
 ## Installation
 
-You can install the released version of rbw from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("rbw")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version of rbw from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -48,6 +42,7 @@ elections.
 library(rbw)
 # install.packages("survey")
 library(survey)
+#> Warning: package 'survey' was built under R version 3.6.3
 
 # models for time-varying confounders
 m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week), data = campaign_long)
