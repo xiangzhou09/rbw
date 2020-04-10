@@ -21,14 +21,8 @@ and causal mediation, respectively.
 
 ## Installation
 
-You can install the released version of rbw from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("rbw")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version of rbw from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -41,8 +35,7 @@ The `rbwpanel()` function constructs residual balancing weights for
 estimating marginal effects of time-varying treatments. The following
 example illustrates its use by estimating the effect of negative
 campaign advertising (`d.gone.neg`) on election outcomes (`demprcnt`)
-for 113 Democratic candidates in the 2006 US Senate and Gubernatorial
-elections.
+for 113 Democratic candidates in US Senate and Gubernatorial elections.
 
 ``` r
 library(rbw)
