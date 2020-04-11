@@ -63,9 +63,9 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     if(!all(unlist(lapply(zmodels, inherits, "lm")))){
       stop("Each element of zmodels must inherit the class 'lm'")
     }
-    znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]],
-                     character(1L))
   }
+  znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]],
+                   character(1L))
 
   # check data
   if(missing(data)) stop("'data' must be provided.")
