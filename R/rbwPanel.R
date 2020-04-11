@@ -66,6 +66,8 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     if(!is.list(xmodels)) stop("xmodels must be a list.")
     if(!all(unlist(lapply(xmodels, inherits, "lm")))){
       stop("Each element of xmodels must inherit the class 'lm'")
+      xnames <- vapply(xmodels, function(mod) names(model.frame(mod))[[1]],
+                       character(1L))
     }
     if(!is.data.frame(data)) stop("'data' must be a data.frame.")
     n <- nrow(data)
@@ -91,7 +93,9 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
 
     # balancing conditions long and wide formats
-    res_prods <- Reduce(cbind, lapply(xmodels, rmat, a))
+
+    res_prods <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = a),
+                                      SIMPLIFY = FALSE))
     tmp <- split(data.frame(id, res_prods, check.names = FALSE), time)
     for(i in seq_along(tmp)){
       names(tmp[[i]])[-1] <- paste(names(tmp[[i]])[-1], i, sep = "_t")

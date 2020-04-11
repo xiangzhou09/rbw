@@ -12,9 +12,8 @@ pivot <- function(mat, eps = 1e-10) {
 }
 
 # generate residual * H matrices
-rmat <- function(mod, a) {
+rmat <- function(mod, xname, a) {
   x <- model.frame(mod)[[1L]]
-  xname <- names(model.frame(mod))[1L]
   pred <- model.matrix(mod)
   resid <- x - mod[["fitted.values"]]
   out <- cbind(resid * pred, resid * a)

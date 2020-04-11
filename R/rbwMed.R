@@ -9,7 +9,7 @@
 #' @param zmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   post-treatment confounders of the mediator-outcome relationship. If there's no
 #'   post-treatment confounder, set it to be \code{NULL}.
-#' @param baseline_x (Optional) Expression for a set of numeric-valued baseline confounders.
+#' @param baseline_x (Optional) Expression for a set of baseline confounders.
 #' @param interact A logical variable indicating whether covariates should also be balanced
 #'   against the treatment-mediator interaction term(s).
 #' @inheritParams eb2
@@ -62,6 +62,8 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     if(!is.list(zmodels)) stop("'zmodels' must be a list.")
     if(!all(unlist(lapply(zmodels, inherits, "lm")))){
       stop("Each element of zmodels must inherit the class 'lm'")
+    znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]],
+                     character(1L))
     }
   }
 
@@ -90,21 +92,29 @@ rbwMed <- function(treatment, mediator, zmodels, data,
   if(!missing(baseline_x)) {
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
-    vars <- eval_tidy(enquo(baseline_x), nl, empty_env())
-    x <- data[, vars, drop = FALSE]
-    xmodels <- lapply(x, function(y) lm(y ~ 1, weights = bweights))
+    vars <- eval_tidy(enexpr(baseline_x), nl)
+    xnames <- names(data)[vars]
+    xform <- paste("~", paste(xnames, collapse = "+"))
+    x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]
+    xmodels <- apply(x, 2, function(y) lm(y ~ 1, weights = bweights))
+    xnames <- names(xmodels)
   } else xmodels <- NULL
 
   if(interact == TRUE){
     am_mat <- eval_tidy(expr(model.matrix(~ (!!ensym(treatment)) * (!!ensym(mediator)), data)))
     am <- `colnames<-`(am_mat[, -1, drop = FALSE], colnames(am_mat)[-1])
-    res_prods_xam <- Reduce(cbind, lapply(xmodels, rmat, am))
-    res_prods_zam <- Reduce(cbind, lapply(zmodels, rmat, am))
+    res_prods_xam <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = am),
+                                          SIMPLIFY = FALSE))
+    res_prods_zam <- Reduce(cbind, mapply(rmat, zmodels, znames, MoreArgs = list(a = am),
+                                          SIMPLIFY = FALSE))
     res_prods <- cbind(res_prods_xam, res_prods_zam)
   } else {
-    res_prods_xa <- Reduce(cbind, lapply(xmodels, rmat, a))
-    res_prods_xm <- Reduce(cbind, lapply(xmodels, rmat, m))
-    res_prods_zm <- Reduce(cbind, lapply(zmodels, rmat, m))
+    res_prods_xa <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = a),
+                                         SIMPLIFY = FALSE))
+    res_prods_xm <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = m),
+                                         SIMPLIFY = FALSE))
+    res_prods_zm <- Reduce(cbind, mapply(rmat, zmodels, znames, MoreArgs = list(a = m),
+                                         SIMPLIFY = FALSE))
     res_prods <- cbind(res_prods_xa, res_prods_xm, res_prods_zm)
   }
 
