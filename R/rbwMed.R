@@ -98,7 +98,7 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]
     xmodels <- apply(x, 2, function(y) lm(y ~ 1, weights = bweights))
     xnames <- names(xmodels)
-  } else xmodels <- NULL
+  } else xnames <- xmodels <- NULL
 
   if(interact == TRUE){
     am_mat <- eval_tidy(expr(model.matrix(~ (!!ensym(treatment)) * (!!ensym(mediator)), data)))
