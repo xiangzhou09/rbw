@@ -62,9 +62,9 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     if(!is.list(zmodels)) stop("'zmodels' must be a list.")
     if(!all(unlist(lapply(zmodels, inherits, "lm")))){
       stop("Each element of zmodels must inherit the class 'lm'")
+    }
     znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]],
                      character(1L))
-    }
   }
 
   # check data

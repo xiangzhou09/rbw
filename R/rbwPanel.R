@@ -62,13 +62,15 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     if(missing(time)) stop("'time' must be provided.")
     if(missing(data)) stop("'data' must be provided.")
 
-    # check xmodels and data type
+    # check xmodels
     if(!is.list(xmodels)) stop("xmodels must be a list.")
     if(!all(unlist(lapply(xmodels, inherits, "lm")))){
       stop("Each element of xmodels must inherit the class 'lm'")
-      xnames <- vapply(xmodels, function(mod) names(model.frame(mod))[[1]],
-                       character(1L))
     }
+    xnames <- vapply(xmodels, function(mod) names(model.frame(mod))[[1]],
+                     character(1L))
+
+    # check data
     if(!is.data.frame(data)) stop("'data' must be a data.frame.")
     n <- nrow(data)
 
