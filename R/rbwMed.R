@@ -91,7 +91,12 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]
     xmodels <- apply(x, 2, function(y) lm(y ~ 1, weights = bweights))
     xnames <- names(xmodels)
-  } else xnames <- xmodels <- NULL
+  } else {
+    xnames <- xmodels <- NULL
+    if(is.null(xmodels) && is.null(zmodels)){
+      stop("Neither 'zmodels' nor baseline confounders are provided.")
+    }
+  }
 
   if(interact == TRUE){
     # construct model matrix for treatment * mediator (without intercept)
