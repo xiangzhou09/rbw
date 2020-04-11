@@ -55,8 +55,10 @@ rbwMed <- function(treatment, mediator, zmodels, data,
   # check treatment and mediator
   if(missing(treatment)) stop("'treatment' must be provided.")
   if(missing(mediator)) stop("'mediator' must be provided.")
+  treatment <- enquo(treatment)
+  mediator <- enquo(mediator)
 
-  # check zmodels and data type
+  # check zmodels
   if(missing(zmodels)) stop("'zmodels' must be provided.")
   if(!is.null(zmodels)){
     if(!is.list(zmodels)) stop("'zmodels' must be a list.")
@@ -64,8 +66,7 @@ rbwMed <- function(treatment, mediator, zmodels, data,
       stop("Each element of zmodels must inherit the class 'lm'")
     }
   }
-  znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]],
-                   character(1L))
+  znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]], character(1L))
 
   # check data
   if(missing(data)) stop("'data' must be provided.")
@@ -80,14 +81,6 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
   }
 
-  # construct model matrix for treatment (without intercept)
-  a_mat <- eval_tidy(expr(model.matrix(~ !!ensym(treatment), data)))
-  a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
-
-  # construct model matrix for mediator (without intercept)
-  m_mat <- eval_tidy(expr(model.matrix(~ !!ensym(mediator), data)))
-  m <- `colnames<-`(m_mat[, -1, drop = FALSE], colnames(m_mat)[-1])
-
   # construct xmodels for baseline confounders
   if(!missing(baseline_x)) {
     nl <- as.list(seq_along(data))
@@ -101,14 +94,29 @@ rbwMed <- function(treatment, mediator, zmodels, data,
   } else xnames <- xmodels <- NULL
 
   if(interact == TRUE){
-    am_mat <- eval_tidy(expr(model.matrix(~ (!!ensym(treatment)) * (!!ensym(mediator)), data)))
+    # construct model matrix for treatment * mediator (without intercept)
+    am_mat <- eval_tidy(quo(model.matrix(~ (!!treatment) * (!!mediator), data)))
     am <- `colnames<-`(am_mat[, -1, drop = FALSE], colnames(am_mat)[-1])
+    if(nrow(am) != n) stop("'treatment * mediator' must have the same length as 'data'.")
+
+    # construct balancing constraints
     res_prods_xam <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = am),
                                           SIMPLIFY = FALSE))
     res_prods_zam <- Reduce(cbind, mapply(rmat, zmodels, znames, MoreArgs = list(a = am),
                                           SIMPLIFY = FALSE))
     res_prods <- cbind(res_prods_xam, res_prods_zam)
   } else {
+    # construct model matrix for treatment (without intercept)
+    a_mat <- eval_tidy(quo(model.matrix(~ !!treatment, data)))
+    a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
+    if(nrow(a) != n) stop("'treatment' must have the same length as 'data'.")
+
+    # construct model matrix for mediator (without intercept)
+    m_mat <- eval_tidy(quo(model.matrix(~ !!mediator, data)))
+    m <- `colnames<-`(m_mat[, -1, drop = FALSE], colnames(m_mat)[-1])
+    if(nrow(m) != nrow(data)) stop("'mediator' must have the same length as 'data'.")
+
+    # construct balancing constraints
     res_prods_xa <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = a),
                                          SIMPLIFY = FALSE))
     res_prods_xm <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = m),

@@ -67,16 +67,17 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     if(!all(unlist(lapply(xmodels, inherits, "lm")))){
       stop("Each element of xmodels must inherit the class 'lm'")
     }
-    xnames <- vapply(xmodels, function(mod) names(model.frame(mod))[[1]],
-                     character(1L))
+    xnames <- vapply(xmodels, function(mod) names(model.frame(mod))[[1]], character(1L))
 
     # check data
     if(!is.data.frame(data)) stop("'data' must be a data.frame.")
     n <- nrow(data)
 
     # extract id and time
-    id <- eval_tidy(ensym(id), data)
-    time <- eval_tidy(ensym(time), data)
+    id <- eval_tidy(enquo(id), data)
+    time <- eval_tidy(enquo(time), data)
+    if(length(id) != n) stop("'id' must have the same length as 'data'.")
+    if(length(time) != n) stop("'time' must have the same length as 'data'.")
 
     # unique id positions
     unique_pos <- !duplicated(id)
@@ -91,11 +92,11 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     }
 
     # construct model matrix for treatment (without intercept)
-    a_mat <- eval_tidy(expr(model.matrix(~ !!ensym(exposure), data)))
+    a_mat <- eval_tidy(quo(model.matrix(~ !!enquo(exposure), data)))
     a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
+    if(nrow(a) != n) stop("'exposure' must have the same length as 'data'.")
 
     # balancing conditions long and wide formats
-
     res_prods <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = a),
                                       SIMPLIFY = FALSE))
     tmp <- split(data.frame(id, res_prods, check.names = FALSE), time)
