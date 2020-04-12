@@ -17,18 +17,18 @@ rbwPanel(
 )
 }
 \arguments{
-\item{exposure}{Symbol for the exposure/treatment variable.}
+\item{exposure}{A symbol or character string for the exposure/treatment variable.}
 
 \item{xmodels}{A list of fitted \code{lm} or \code{glm} objects for
 time-varying confounders.}
 
-\item{id}{Symbol for the unit id variable.}
+\item{id}{A symbol or character string for the unit id variable.}
 
-\item{time}{Symbol for the time variable.}
+\item{time}{A symbol or character string for the time variable.}
 
 \item{data}{A data frame containing all variables in the model.}
 
-\item{base_weights}{(Optional) Symbol for base weights.}
+\item{base_weights}{(Optional) A vector of base weights (or its name).}
 
 \item{max_iter}{Maximum number of iterations for Newton's method.}
 

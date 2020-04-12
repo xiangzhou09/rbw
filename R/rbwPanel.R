@@ -7,13 +7,13 @@
 #' the residuals of a time-varying covariate \eqn{X_t} are balanced across both current
 #' treatment \eqn{D_t} and the regressors of \eqn{X_t}.
 #'
-#' @param exposure Symbol for the exposure/treatment variable.
+#' @param exposure A symbol or character string for the exposure/treatment variable.
 #' @param xmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   time-varying confounders.
-#' @param id Symbol for the unit id variable.
-#' @param time Symbol for the time variable.
+#' @param id A symbol or character string for the unit id variable.
+#' @param time A symbol or character string for the time variable.
 #' @param data A data frame containing all variables in the model.
-#' @param base_weights (Optional) Symbol for base weights.
+#' @param base_weights (Optional) A vector of base weights (or its name).
 #' @inheritParams eb2
 #'
 #' @return A list containing the results.
@@ -74,8 +74,8 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     n <- nrow(data)
 
     # extract id and time
-    id <- eval_tidy(enquo(id), data)
-    time <- eval_tidy(enquo(time), data)
+    id <- eval_tidy(ensym(id), data)
+    time <- eval_tidy(ensym(time), data)
     if(length(id) != n) stop("'id' must have the same length as 'data'.")
     if(length(time) != n) stop("'time' must have the same length as 'data'.")
 
@@ -92,7 +92,7 @@ rbwPanel <- function(exposure, xmodels, id, time, data,
     }
 
     # construct model matrix for treatment (without intercept)
-    a_mat <- eval_tidy(quo(model.matrix(~ !!enquo(exposure), data)))
+    a_mat <- eval_tidy(quo(model.matrix(~ !!ensym(exposure), data)))
     a <- `colnames<-`(a_mat[, -1, drop = FALSE], colnames(a_mat)[-1])
     if(nrow(a) != n) stop("'exposure' must have the same length as 'data'.")
 

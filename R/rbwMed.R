@@ -4,14 +4,14 @@
 #' causal mediation analysis. The weights can be used to fit marginal
 #' structural models for the joint effects of the treatment and a mediator.
 #'
-#' @param treatment Symbol for the treatment variable.
-#' @param mediator Symbol for the mediator variable.
+#' @param treatment A symbol or character string for the treatment variable.
+#' @param mediator A symbol or character string for the mediator variable.
 #' @param zmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   post-treatment confounders of the mediator-outcome relationship. If there's no
 #'   post-treatment confounder, set it to be \code{NULL}.
-#' @param baseline_x (Optional) Expression for a set of baseline confounders.
-#' @param interact A logical variable indicating whether covariates should also be balanced
-#'   against the treatment-mediator interaction term(s).
+#' @param baseline_x (Optional) An expression for a set of baseline confounders stored in \code{data}.
+#' @param interact A logical variable indicating whether baseline and post-treatment covariates
+#'   should be balanced against the treatment-mediator interaction term(s).
 #' @inheritParams eb2
 #' @inheritParams rbwPanel
 #'
@@ -55,8 +55,8 @@ rbwMed <- function(treatment, mediator, zmodels, data,
   # check treatment and mediator
   if(missing(treatment)) stop("'treatment' must be provided.")
   if(missing(mediator)) stop("'mediator' must be provided.")
-  treatment <- enquo(treatment)
-  mediator <- enquo(mediator)
+  treatment <- ensym(treatment)
+  mediator <- ensym(mediator)
 
   # check zmodels
   if(missing(zmodels)) stop("'zmodels' must be provided.")
@@ -119,7 +119,7 @@ rbwMed <- function(treatment, mediator, zmodels, data,
     # construct model matrix for mediator (without intercept)
     m_mat <- eval_tidy(quo(model.matrix(~ !!mediator, data)))
     m <- `colnames<-`(m_mat[, -1, drop = FALSE], colnames(m_mat)[-1])
-    if(nrow(m) != nrow(data)) stop("'mediator' must have the same length as 'data'.")
+    if(nrow(m) != n) stop("'mediator' must have the same length as 'data'.")
 
     # construct balancing constraints
     res_prods_xa <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = a),

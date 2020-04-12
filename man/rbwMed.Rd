@@ -18,9 +18,9 @@ rbwMed(
 )
 }
 \arguments{
-\item{treatment}{Symbol for the treatment variable.}
+\item{treatment}{A symbol or character string for the treatment variable.}
 
-\item{mediator}{Symbol for the mediator variable.}
+\item{mediator}{A symbol or character string for the mediator variable.}
 
 \item{zmodels}{A list of fitted \code{lm} or \code{glm} objects for
 post-treatment confounders of the mediator-outcome relationship. If there's no
@@ -28,12 +28,12 @@ post-treatment confounder, set it to be \code{NULL}.}
 
 \item{data}{A data frame containing all variables in the model.}
 
-\item{baseline_x}{(Optional) Expression for a set of baseline confounders.}
+\item{baseline_x}{(Optional) Expression for a set of baseline confounders stored in \code{data}.}
 
-\item{interact}{A logical variable indicating whether covariates should also be balanced
-against the treatment-mediator interaction term(s).}
+\item{interact}{A logical variable indicating whether baseline and post-treatment covariates
+should be balanced against the treatment-mediator interaction term(s).}
 
-\item{base_weights}{(Optional) Symbol for base weights.}
+\item{base_weights}{(Optional) A vector of base weights (or its name).}
 
 \item{max_iter}{Maximum number of iterations for Newton's method.}
 
