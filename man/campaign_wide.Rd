@@ -10,8 +10,8 @@
   \item{deminc}{whether the candidate was an incumbent.}
   \item{base.poll}{Democratic share in the baseline polls}
   \item{base.und}{share of undecided voters in the baseline polls}
-  \item{office}{type of office in contest. 1: governor; 0: senator}
-  \item{demprcnt}{the Democratic share of the two-party vote in the election}
+  \item{office}{type of office in contest. 0: governor; 1: senator}
+  \item{demprcnt}{Democratic share of the two-party vote in the election}
   \item{year}{year of the election}
   \item{state}{state of the election}
   \item{id}{candidate id}

@@ -9,7 +9,7 @@
   \item{weights}{NLSY79 sampling weight}
   \item{college}{whether the respondent obtained a Bachelor's degree by age 25}
   \item{ses}{socioeconomic status, measured by the percentile rank of the respondent's
-  family income around age 40.}
+  family income at age 40.}
   \item{cesd40}{depression score at age 40, measured by the Center for Epidemiologic Studies
   Depression Scale}
   \item{female}{a dummy variable indicating whether the respondent is female.}
@@ -28,7 +28,7 @@ education
 }
 \description{
 A dataset containing 14 variables on education, socioeconomic status,
-mental health, gender, race, and family background among 2,835 individuals from
+mental health, gender, race, and family background for 2,835 respondents from
 the National Longitudinal Survey of Youth, 1979 (NLSY79)
 }
 \keyword{datasets}
