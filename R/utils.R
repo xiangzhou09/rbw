@@ -1,7 +1,5 @@
 utils::globalVariables(c("C", "M", "Q"))
 
-`%||%` <- function(a, b) if (!is.null(a)) a else b
-
 # extract independent columns from a matrix
 pivot <- function(mat, eps = 1e-10) {
   nonzero <- colSums(abs(mat) > eps) > 0

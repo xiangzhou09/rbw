@@ -4,13 +4,32 @@
 \name{campaign_long}
 \alias{campaign_long}
 \title{Long-format Data on Negative Campaign Advertising in US Senate and Gubernatorial Elections}
-\format{An object of class \code{data.frame} with 565 rows and 24 columns.}
+\format{A data frame with 565 rows and 17 columns: \describe{
+  \item{demName}{name of the Democratic candidate}
+  \item{d.gone.neg}{whether the candidate went negative in a campaign-week,
+   defined as whether more than 10\% of the candidate's political advertising was negative}
+  \item{d.gone.neg.l1}{whether the candidate went negative in the previous campaign-week}
+  \item{camp.length}{length of the candidate's campaign (in weeks)}
+  \item{deminc}{whether the candidate was an incumbent}
+  \item{base.poll}{Democratic share in the baseline polls}
+  \item{base.und}{share of undecided voters in the baseline polls}
+  \item{office}{type of office in contest. 1: governor; 0: senator}
+  \item{demprcnt}{the Democratic share of the two-party vote in the election}
+  \item{week}{week in the campaign (in the final five weeks preceding the election)}
+  \item{year}{year of the election}
+  \item{state}{state of the election}
+  \item{dem.polls}{Democratic share in the polls}
+  \item{dem.polls.l1}{Democratic share in the polls in the previous campaign-week}
+  \item{undother}{share of undecided voters in the polls}
+  \item{undother.l1}{share of undecided voters in the polls in the previous campaign-week}
+  \item{id}{candidate id}
+ }}
 \usage{
 campaign_long
 }
 \description{
-A dataset containing 21 columns (including treatment, outcome, id, time, and baseline
-and time-varying confounders) and 565 unit-week records from Blackwell (2013).
+A dataset containing 17 variables and 565 unit-week records on the campaign of 113 Democratic candidates
+in US Senate and Gubernatorial Elections from 2000 to 2006 (Blackwell 2013).
 }
 \references{
 Blackwell, Matthew. 2013. A Framework for Dynamic Causal Inference in

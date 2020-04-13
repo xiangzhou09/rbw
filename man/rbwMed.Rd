@@ -28,7 +28,7 @@ post-treatment confounder, set it to be \code{NULL}.}
 
 \item{data}{A data frame containing all variables in the model.}
 
-\item{baseline_x}{(Optional) Expression for a set of baseline confounders stored in \code{data}.}
+\item{baseline_x}{(Optional) An expression for a set of baseline confounders stored in \code{data}.}
 
 \item{interact}{A logical variable indicating whether baseline and post-treatment covariates
 should be balanced against the treatment-mediator interaction term(s).}
@@ -37,8 +37,13 @@ should be balanced against the treatment-mediator interaction term(s).}
 
 \item{max_iter}{Maximum number of iterations for Newton's method.}
 
-\item{print_level}{The level of printing: 1 (normal printing), 2 (detailed),
-and 3 (very detailed).}
+\item{print_level}{The level of printing: \describe{
+\item{1}{normal: print whether the algorithm converges or not}
+\item{2}{detailed: print also the maximum absolute value of the deviation between the moments
+ of the reweighted data and the target moments in each iteration}
+\item{3}{very detailed: print also the step length of the line searcher in iterations where
+ a full Newton step is excessive.}
+}}
 
 \item{tol}{Tolerance parameter used to determine convergence.}
 }
@@ -56,17 +61,17 @@ structural models for the joint effects of the treatment and a mediator.
 }
 \examples{
 # models for post-treatment confounders
-m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, weights = weights, data = education)
-m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father +
-  hispanic + urban + educ_mom + num_sibs + college, weights = weights, data = education)
-m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
-  hispanic +urban + educ_mom + num_sibs + college, weights = weights, data = education)
+m1 <- lm(cesd92 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
+m2 <- lm(prmarr98 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
+m3 <- lm(transitions98 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
 
 # residual balancing weights
-rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
-  zmodels = list(m1, m2, m3), interact = TRUE, base_weights = weights, data = education)
-summary(rbwMed_fit$weights)
+rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
+  zmodels = list(m1, m2, m3), baseline_x = female:educexp,
+  interact = TRUE, base_weights = weights, data = education)
 
 # attach residual balancing weights to data
 education$rbw <- rbwMed_fit$weights

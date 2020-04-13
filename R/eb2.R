@@ -9,20 +9,25 @@
 #' size.
 #'
 #' @param C A constraint matrix.
-#' @param M A vector of moments conditions to be met in the reweighted sample.
+#' @param M A vector of moment conditions to be met in the reweighted sample.
 #' @param Q A vector of base weights.
 #' @param Z A vector of Lagrange multipliers to be initialized.
 #' @param max_iter Maximum number of iterations for Newton's method.
 #' @param tol Tolerance parameter used to determine convergence.
-#' @param print_level The level of printing: 1 (normal printing), 2 (detailed),
-#'   and 3 (very detailed).
+#' @param print_level The level of printing: \describe{
+#'  \item{1}{normal: print whether the algorithm converges or not}
+#'  \item{2}{detailed: print also the maximum absolute value of the deviation between the moments
+#'   of the reweighted data and the target moments in each iteration}
+#'  \item{3}{very detailed: print also the step length of the line searcher in iterations where
+#'   a full Newton step is excessive.}
+#'  }
 #'
 #' @return A list containing the results from the algorithm.
 #'  \item{W}{A vector of normalized minimum entropy weights.}
 #'  \item{Z}{A vector of Lagrange multipliers.}
 #'  \item{converged}{A logical indicator for convergence.}
-#'  \item{maxdiff}{A scalar that contains the maximum deviation
-#'    between the moments of the reweighted data and the target moments.}
+#'  \item{maxdiff}{A scalar that contains the maximum deviation between the
+#'   moments of the reweighted data and the target moments.}
 #' @import stats
 #' @export
 

@@ -24,17 +24,17 @@
 #'
 #' @examples
 #' # models for post-treatment confounders
-#' m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father +
-#'   hispanic + urban + educ_mom + num_sibs + college, weights = weights, data = education)
-#' m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father +
-#'   hispanic + urban + educ_mom + num_sibs + college, weights = weights, data = education)
-#' m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father +
-#'   hispanic +urban + educ_mom + num_sibs + college, weights = weights, data = education)
+#' m1 <- lm(cesd92 ~ female + race + momedu + parinc + afqt3 +
+#'   educexp + college, data = education)
+#' m2 <- lm(prmarr98 ~ female + race + momedu + parinc + afqt3 +
+#'   educexp + college, data = education)
+#' m3 <- lm(transitions98 ~ female + race + momedu + parinc + afqt3 +
+#'   educexp + college, data = education)
 #'
 #' # residual balancing weights
-#' rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
-#'   zmodels = list(m1, m2, m3), interact = TRUE, base_weights = weights, data = education)
-#' summary(rbwMed_fit$weights)
+#' rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
+#'   zmodels = list(m1, m2, m3), baseline_x = female:educexp,
+#'   interact = TRUE, base_weights = weights, data = education)
 #'
 #' # attach residual balancing weights to data
 #' education$rbw <- rbwMed_fit$weights

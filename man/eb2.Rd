@@ -10,7 +10,7 @@ eb2(C, M, Q, Z = rep(0, ncol(C)), max_iter = 200, tol = 1e-04, print_level = 2)
 \arguments{
 \item{C}{A constraint matrix.}
 
-\item{M}{A vector of moments conditions to be met in the reweighted sample.}
+\item{M}{A vector of moment conditions to be met in the reweighted sample.}
 
 \item{Q}{A vector of base weights.}
 
@@ -20,16 +20,21 @@ eb2(C, M, Q, Z = rep(0, ncol(C)), max_iter = 200, tol = 1e-04, print_level = 2)
 
 \item{tol}{Tolerance parameter used to determine convergence.}
 
-\item{print_level}{The level of printing: 1 (normal printing), 2 (detailed),
-and 3 (very detailed).}
+\item{print_level}{The level of printing: \describe{
+\item{1}{normal: print whether the algorithm converges or not}
+\item{2}{detailed: print also the maximum absolute value of the deviation between the moments
+ of the reweighted data and the target moments in each iteration}
+\item{3}{very detailed: print also the step length of the line searcher in iterations where
+ a full Newton step is excessive.}
+}}
 }
 \value{
 A list containing the results from the algorithm.
  \item{W}{A vector of normalized minimum entropy weights.}
  \item{Z}{A vector of Lagrange multipliers.}
  \item{converged}{A logical indicator for convergence.}
- \item{maxdiff}{A scalar that contains the maximum deviation
-   between the moments of the reweighted data and the target moments.}
+ \item{maxdiff}{A scalar that contains the maximum deviation between the
+  moments of the reweighted data and the target moments.}
 }
 \description{
 \code{eb2} is an adaptation of \code{\link[ebal]{eb}} that generates

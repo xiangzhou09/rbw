@@ -3,13 +3,32 @@
 \docType{data}
 \name{education}
 \alias{education}
-\title{Data on College Education and Depression among US adults}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2924 rows and 18 columns.}
+\title{Data on Education Attainment and Mental Health in a Sample of US adults.}
+\format{A data frame with 565 rows and 17 columns: \describe{
+  \item{id}{respondent id}
+  \item{weights}{NLSY79 sampling weight}
+  \item{college}{whether the respondent obtained a Bachelor's degree by age 25}
+  \item{ses}{socioeconomic status, measured by the percentile rank of the respondent's
+  family income around age 40.}
+  \item{cesd40}{depression score at age 40, measured by the Center for Epidemiologic Studies
+  Depression Scale}
+  \item{female}{a dummy variable indicating whether the respondent is female.}
+  \item{race}{the race of the respondent, 1: Hispanic; 2: black; 3: other.}
+  \item{momedu}{mother's education, measured by highest grade completed}
+  \item{parinc}{the percentile rank of parent income in 1979-1983}
+  \item{afqt3}{cognitive ability in 1981, measured by the Armed Forces Qualification Test}
+  \item{educexp}{educational expectation in 1979}
+  \item{cesd92}{depression score in 1992, measured by the Center for Epidemiologic Studies
+  Depression Scale}
+  \item{prmarr98}{proportion of time married between 1990 and 1998}
+  \item{transitions98}{number of family transitions between 1990 and 1998}
+  }}
 \usage{
 education
 }
 \description{
-A dataset containing 18 columns (including treatment, mediator, outcome, and
-baseline and post-treatment confounders) and 2,924 individuals.
+A dataset containing 14 variables on education, socioeconomic status,
+mental health, gender, race, and family background among 2,835 individuals from
+the National Longitudinal Survey of Youth, 1979 (NLSY79)
 }
 \keyword{datasets}

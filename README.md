@@ -13,7 +13,7 @@ package provides two main functions, `rbwPanel()` and `rbwMed()`, that
 produce residual balancing weights for analyzing time-varying treatments
 and causal mediation, respectively.
 
-**Main Reference**
+**Reference**
 
   - Zhou, Xiang and Geoffrey T Wodtke. 2020. “[Residual Balancing: A
     Method of Constructing Weights for Marginal Structural
@@ -21,8 +21,14 @@ and causal mediation, respectively.
 
 ## Installation
 
-You can install the development version of rbw from
-[GitHub](https://github.com/) with:
+You can install the released version of rbw from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("rbw")
+```
+
+And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -31,7 +37,7 @@ devtools::install_github("xiangzhou09/rbw")
 
 ## Estimating Marginal Effects of Time-varying Treatments
 
-The `rbwpanel()` function constructs residual balancing weights for
+The `rbwPanel()` function constructs residual balancing weights for
 estimating marginal effects of time-varying treatments. The following
 example illustrates its use by estimating the effect of negative
 campaign advertising (`d.gone.neg`) on election outcomes (`demprcnt`)
@@ -41,7 +47,6 @@ for 113 Democratic candidates in US Senate and Gubernatorial elections.
 library(rbw)
 # install.packages("survey")
 library(survey)
-#> Warning: package 'survey' was built under R version 3.6.3
 
 # models for time-varying confounders
 m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week), data = campaign_long)
@@ -99,22 +104,23 @@ Longitudinal Survey of Youth, 1979.
 
 ``` r
 # models for post-treatment confounders
-m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father + hispanic + urban + educ_mom +
-           num_sibs + college, weights = weights, data = education)
-m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father + hispanic + urban + educ_mom +
-           num_sibs + college, weights = weights, data = education)
-m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father + hispanic +urban + educ_mom +
-           num_sibs + college, weights = weights, data = education)
+m1 <- lm(cesd92 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
+m2 <- lm(prmarr98 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
+m3 <- lm(transitions98 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
 
 # residual balancing weights
-rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
-                     zmodels = list(m1, m2, m3), base_weights = weights, data = education)
+rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
+  zmodels = list(m1, m2, m3), baseline_x = female:educexp,
+  interact = TRUE, base_weights = weights, data = education)
 #> Entropy minimization converged within tolerance level
 
 # attach residual balancing weights to data
 education$rbw <- rbwMed_fit$weights
 
-# fit a marginal structural model
+# fit marginal structural model
 rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
 msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
 summary(msm_rbw)
@@ -126,15 +132,15 @@ summary(msm_rbw)
 #> svydesign(ids = ~1, weights = ~rbw, data = education)
 #> 
 #> Coefficients:
-#>               Estimate Std. Error t value Pr(>|t|)   
-#> (Intercept) -0.0007527  0.0275409  -0.027  0.97820   
-#> college     -0.1055394  0.0810119  -1.303  0.19276   
-#> ses         -0.3587749  0.1143384  -3.138  0.00172 **
-#> college:ses  0.3939679  0.3662347   1.076  0.28214   
+#>             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)   3.8267     0.2836  13.491  < 2e-16 ***
+#> college      -1.0916     0.9801  -1.114 0.265462    
+#> ses          -1.7313     0.4508  -3.841 0.000125 ***
+#> college:ses   1.3929     1.5022   0.927 0.353881    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> (Dispersion parameter for gaussian family taken to be 0.975618)
+#> (Dispersion parameter for gaussian family taken to be 13.02137)
 #> 
 #> Number of Fisher Scoring iterations: 2
 ```

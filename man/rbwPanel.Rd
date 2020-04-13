@@ -32,8 +32,13 @@ time-varying confounders.}
 
 \item{max_iter}{Maximum number of iterations for Newton's method.}
 
-\item{print_level}{The level of printing: 1 (normal printing), 2 (detailed),
-and 3 (very detailed).}
+\item{print_level}{The level of printing: \describe{
+\item{1}{normal: print whether the algorithm converges or not}
+\item{2}{detailed: print also the maximum absolute value of the deviation between the moments
+ of the reweighted data and the target moments in each iteration}
+\item{3}{very detailed: print also the step length of the line searcher in iterations where
+ a full Newton step is excessive.}
+}}
 
 \item{tol}{Tolerance parameter used to determine convergence.}
 }

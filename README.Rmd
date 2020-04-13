@@ -17,13 +17,19 @@ knitr::opts_chunk$set(
 
 Residual balancing is a method of constructing weights for marginal structural models, which can be used to estimate marginal effects of time-varying treatments and controlled direct/mediator effects in causal mediation analysis. Compared with inverse probability-of-treatment weights (IPW), residual balancing weights tend to be more robust and more efficient, and are easier to use with continuous exposures. This package provides two main functions, `rbwPanel()` and `rbwMed()`, that produce residual balancing weights for analyzing time-varying treatments and causal mediation, respectively.
 
-**Main Reference**
+**Reference**
 
 - Zhou, Xiang and Geoffrey T Wodtke. 2020. "[Residual Balancing: A Method of Constructing Weights for Marginal Structural Models](https://doi.org/10.1017/pan.2020.2)" Political Analysis.
 
 ## Installation
 
-You can install the development version of rbw from [GitHub](https://github.com/) with:
+You can install the released version of rbw from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("rbw")
+```
+
+And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -32,7 +38,7 @@ devtools::install_github("xiangzhou09/rbw")
 
 ## Estimating Marginal Effects of Time-varying Treatments
 
-The `rbwpanel()` function constructs residual balancing weights for estimating marginal effects of time-varying treatments. The following example illustrates its use by estimating the effect of negative campaign advertising (`d.gone.neg`) on election outcomes (`demprcnt`) for 113 Democratic candidates in US Senate and Gubernatorial elections. 
+The `rbwPanel()` function constructs residual balancing weights for estimating marginal effects of time-varying treatments. The following example illustrates its use by estimating the effect of negative campaign advertising (`d.gone.neg`) on election outcomes (`demprcnt`) for 113 Democratic candidates in US Senate and Gubernatorial elections. 
 
 ```{r, message = FALSE}
 library(rbw)
@@ -62,21 +68,22 @@ In causal mediation analysis, the `rbwMed()` function can be used to construct r
 
 ```{r, message = FALSE}
 # models for post-treatment confounders
-m1 <- lm(cesd92 ~ male + black + test_score + educ_exp +  father + hispanic + urban + educ_mom +
-           num_sibs + college, weights = weights, data = education)
-m2 <- lm(prmarr98 ~ male + black + test_score + educ_exp +  father + hispanic + urban + educ_mom +
-           num_sibs + college, weights = weights, data = education)
-m3 <- lm(transitions98 ~ male + black + test_score + educ_exp + father + hispanic +urban + educ_mom +
-           num_sibs + college, weights = weights, data = education)
+m1 <- lm(cesd92 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
+m2 <- lm(prmarr98 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
+m3 <- lm(transitions98 ~ female + race + momedu + parinc + afqt3 +
+  educexp + college, data = education)
 
 # residual balancing weights
-rbwMed_fit <- rbwMed(treatment = college, mediator = ses, baseline_x = male:num_sibs,
-                     zmodels = list(m1, m2, m3), base_weights = weights, data = education)
+rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
+  zmodels = list(m1, m2, m3), baseline_x = female:educexp,
+  interact = TRUE, base_weights = weights, data = education)
 
 # attach residual balancing weights to data
 education$rbw <- rbwMed_fit$weights
 
-# fit a marginal structural model
+# fit marginal structural model
 rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
 msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
 summary(msm_rbw)
