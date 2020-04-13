@@ -1,4 +1,4 @@
-# rbw 0.2.1
+# rbw 0.2.0
 
 * revised `rbwPanel()` to allow for unbalanced panel data
 * added `interact` option in `rwrMed()`
