@@ -26,7 +26,7 @@
 #'  \item{W}{A vector of normalized minimum entropy weights.}
 #'  \item{Z}{A vector of Lagrange multipliers.}
 #'  \item{converged}{A logical indicator for convergence.}
-#'  \item{maxdiff}{A scalar that contains the maximum deviation between the
+#'  \item{maxdiff}{A scalar indicating the maximum deviation between the
 #'   moments of the reweighted data and the target moments.}
 #' @import stats
 #' @export

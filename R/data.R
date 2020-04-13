@@ -12,8 +12,8 @@
 #'   \item{deminc}{whether the candidate was an incumbent}
 #'   \item{base.poll}{Democratic share in the baseline polls}
 #'   \item{base.und}{share of undecided voters in the baseline polls}
-#'   \item{office}{type of office in contest. 1: governor; 0: senator}
-#'   \item{demprcnt}{the Democratic share of the two-party vote in the election}
+#'   \item{office}{type of office in contest. 0: governor; 1: senator}
+#'   \item{demprcnt}{Democratic share of the two-party vote in the election}
 #'   \item{week}{week in the campaign (in the final five weeks preceding the election)}
 #'   \item{year}{year of the election}
 #'   \item{state}{state of the election}
@@ -37,8 +37,8 @@
 #'   \item{deminc}{whether the candidate was an incumbent.}
 #'   \item{base.poll}{Democratic share in the baseline polls}
 #'   \item{base.und}{share of undecided voters in the baseline polls}
-#'   \item{office}{type of office in contest. 1: governor; 0: senator}
-#'   \item{demprcnt}{the Democratic share of the two-party vote in the election}
+#'   \item{office}{type of office in contest. 0: governor; 1: senator}
+#'   \item{demprcnt}{Democratic share of the two-party vote in the election}
 #'   \item{year}{year of the election}
 #'   \item{state}{state of the election}
 #'   \item{id}{candidate id}
@@ -66,7 +66,7 @@
 #' Data on Education Attainment and Mental Health in a Sample of US adults.
 #'
 #' A dataset containing 14 variables on education, socioeconomic status,
-#' mental health, gender, race, and family background among 2,835 individuals from
+#' mental health, gender, race, and family background for 2,835 respondents from
 #' the National Longitudinal Survey of Youth, 1979 (NLSY79)
 #'
 #' @format A data frame with 565 rows and 17 columns: \describe{
@@ -74,7 +74,7 @@
 #'   \item{weights}{NLSY79 sampling weight}
 #'   \item{college}{whether the respondent obtained a Bachelor's degree by age 25}
 #'   \item{ses}{socioeconomic status, measured by the percentile rank of the respondent's
-#'   family income around age 40.}
+#'   family income at age 40.}
 #'   \item{cesd40}{depression score at age 40, measured by the Center for Epidemiologic Studies
 #'   Depression Scale}
 #'   \item{female}{a dummy variable indicating whether the respondent is female.}
