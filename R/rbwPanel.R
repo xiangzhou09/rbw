@@ -44,13 +44,13 @@
 #' # fit a marginal structural model (adjusting for baseline confounders)
 #' if(require(survey)){
 #'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
-#'   msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
+#'   msm_rbwPanel <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
 #'   design = rbw_design)
-#'   summary(msm_rbw)
+#'   summary(msm_rbwPanel)
 #' }
 rbwPanel <- function(exposure, xmodels, id, time, data,
                      base_weights, max_iter = 200,
-                     print_level = 1, tol = 1e-4) {
+                     print_level = 1, tol = 1e-6) {
 
     # match call
     cl <- match.call()

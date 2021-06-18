@@ -1,8 +1,8 @@
 #' Residual Balancing Weights for Causal Mediation Analysis
 #'
-#' \code{rbwMed} is a function that produces residual balancing weights for
-#' causal mediation analysis. The weights can be used to fit marginal
-#' structural models for the joint effects of the treatment and a mediator.
+#' \code{rbwMed} is a function that produces residual balancing weights for estimating
+#' controlled direct/mediator effects in causal mediation analysis. The weights can be used to
+#' fit marginal structural models for the joint effects of the treatment and a mediator.
 #'
 #' @param treatment A symbol or character string for the treatment variable.
 #' @param mediator A symbol or character string for the mediator variable.
@@ -24,30 +24,33 @@
 #'
 #' @examples
 #' # models for post-treatment confounders
-#' m1 <- lm(cesd92 ~ female + race + momedu + parinc + afqt3 +
-#'   educexp + college, data = education)
-#' m2 <- lm(prmarr98 ~ female + race + momedu + parinc + afqt3 +
-#'   educexp + college, data = education)
-#' m3 <- lm(transitions98 ~ female + race + momedu + parinc + afqt3 +
-#'   educexp + college, data = education)
+#' m1 <- lm(threatc ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
+#'   male + white + age + ed4 + democ, data = peace)
+#'
+#' m2 <- lm(cost ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
+#'   male + white + age + ed4 + democ, data = peace)
+#'
+#' m3 <- lm(successc ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
+#'   male + white + age + ed4 + democ, data = peace)
 #'
 #' # residual balancing weights
-#' rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
-#'   zmodels = list(m1, m2, m3), baseline_x = female:educexp,
-#'   interact = TRUE, base_weights = weights, data = education)
+#' rbwMed_fit <- rbwMed(treatment = democ, mediator = immoral,
+#'   zmodels = list(m1, m2, m3), interact = TRUE,
+#'   baseline_x = c(ally, trade, h1, i1, p1, e1, r1, male, white, age, ed4),
+#'   data = peace)
 #'
 #' # attach residual balancing weights to data
-#' education$rbw <- rbwMed_fit$weights
+#' peace$rbw_cde <- rbwMed_fit$weights
 #'
 #' # fit marginal structural model
 #' if(require(survey)){
-#'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
-#'   msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
-#'   summary(msm_rbw)
+#'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw_cde, data = peace)
+#'   msm_rbwMed <- svyglm(strike ~ democ * immoral, design = rbw_design)
+#'   summary(msm_rbwMed)
 #' }
 rbwMed <- function(treatment, mediator, zmodels, data,
                    baseline_x, interact = FALSE, base_weights,
-                   max_iter = 200, print_level = 1, tol = 1e-4) {
+                   max_iter = 200, print_level = 1, tol = 1e-6) {
 
   # match call
   cl <- match.call()

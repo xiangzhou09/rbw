@@ -3,6 +3,8 @@
 ^data-raw$
 ^\.travis\.yml$
 ^README\.Rmd$
+^README.Rmd
+^desktop.ini
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 

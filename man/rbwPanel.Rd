@@ -13,7 +13,7 @@ rbwPanel(
   base_weights,
   max_iter = 200,
   print_level = 1,
-  tol = 1e-04
+  tol = 1e-06
 )
 }
 \arguments{
@@ -78,8 +78,8 @@ campaign_wide2 <- merge(campaign_wide, rbwPanel_fit$weights, by = "id")
 # fit a marginal structural model (adjusting for baseline confounders)
 if(require(survey)){
   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = campaign_wide2)
-  msm_rbw <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
+  msm_rbwPanel <- svyglm(demprcnt ~ cum_neg * deminc + camp.length + factor(year) + office,
   design = rbw_design)
-  summary(msm_rbw)
+  summary(msm_rbwPanel)
 }
 }
