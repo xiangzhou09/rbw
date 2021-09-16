@@ -1,6 +1,6 @@
 #' Long-format Data on Negative Campaign Advertising in US Senate and Gubernatorial Elections
 #'
-#' A dataset containing 17 variables and 565 unit-week records on the campaign of 113 Democratic candidates
+#' A dataset containing 19 variables and 565 unit-week records on the campaign of 113 Democratic candidates
 #' in US Senate and Gubernatorial Elections from 2000 to 2006 (Blackwell 2013).
 #'
 #' @format A data frame with 565 rows and 17 columns: \describe{
@@ -21,6 +21,8 @@
 #'   \item{dem.polls.l1}{Democratic share in the polls in the previous campaign-week}
 #'   \item{undother}{share of undecided voters in the polls}
 #'   \item{undother.l1}{share of undecided voters in the polls in the previous campaign-week}
+#'   \item{neg.dem}{the propotion of advertisements that were negative in a campaign-week}
+#'   \item{neg.dem.l1}{the proportion of advertisements that were negative in the previous campaign-week}
 #'   \item{id}{candidate id}
 #'  }
 #' @references Blackwell, Matthew. 2013. A Framework for Dynamic Causal Inference in
@@ -29,7 +31,7 @@
 
 #' Wide-format Data on Negative Campaign Advertising in US Senate and Gubernatorial Elections
 #'
-#' A dataset containing 26 variables and 113 unit records from Blackwell (2013).
+#' A dataset containing 32 variables and 113 unit records from Blackwell (2013).
 #'
 #' @format A data frame with 113 rows and 26 columns: \describe{
 #'   \item{demName}{name of the Democratic candidate}
@@ -42,22 +44,28 @@
 #'   \item{year}{year of the election}
 #'   \item{state}{state of the election}
 #'   \item{id}{candidate id}
-#'   \item{d.gone.neg_1}{whether the candidate went negative in week 1}
-#'   \item{d.gone.neg_2}{whether the candidate went negative in week 2}
-#'   \item{d.gone.neg_3}{whether the candidate went negative in week 3}
-#'   \item{d.gone.neg_4}{whether the candidate went negative in week 4}
-#'   \item{d.gone.neg_5}{whether the candidate went negative in week 5}
 #'   \item{dem.polls_1}{Democratic share in week 1 polls}
 #'   \item{dem.polls_2}{Democratic share in week 2 polls}
 #'   \item{dem.polls_3}{Democratic share in week 3 polls}
 #'   \item{dem.polls_4}{Democratic share in week 4 polls}
 #'   \item{dem.polls_5}{Democratic share in week 5 polls}
+#'   \item{d.gone.neg_1}{whether the candidate went negative in week 1}
+#'   \item{d.gone.neg_2}{whether the candidate went negative in week 2}
+#'   \item{d.gone.neg_3}{whether the candidate went negative in week 3}
+#'   \item{d.gone.neg_4}{whether the candidate went negative in week 4}
+#'   \item{d.gone.neg_5}{whether the candidate went negative in week 5}
+#'   \item{neg.dem_1}{the propotion of advertisements that were negative in week 1 polls}
+#'   \item{neg.dem_2}{the propotion of advertisements that were negative in week 2 polls}
+#'   \item{neg.dem_3}{the propotion of advertisements that were negative in week 3 polls}
+#'   \item{neg.dem_4}{the propotion of advertisements that were negative in week 4 polls}
+#'   \item{neg.dem_5}{the propotion of advertisements that were negative in week 5 polls}
 #'   \item{undother_1}{share of undecided voters in week 1 polls}
 #'   \item{undother_2}{share of undecided voters in week 2 polls}
 #'   \item{undother_3}{share of undecided voters in week 3 polls}
 #'   \item{undother_4}{share of undecided voters in week 4 polls}
 #'   \item{undother_5}{share of undecided voters in week 5 polls}
 #'   \item{cum_neg}{the total number of campaign-weeks in which a candidate went negative}
+#'   \item{ave_neg}{the average proportion of advertisements that were negative over the final five weeks of the campaign multiplied by ten}
 #'   }
 #' @references Blackwell, Matthew. 2013. A Framework for Dynamic Causal Inference in
 #'   Political Science. American Journal of Political Science 57(2): 504-619.

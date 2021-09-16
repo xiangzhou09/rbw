@@ -23,6 +23,8 @@ A data frame with 565 rows and 17 columns: \describe{
   \item{dem.polls.l1}{Democratic share in the polls in the previous campaign-week}
   \item{undother}{share of undecided voters in the polls}
   \item{undother.l1}{share of undecided voters in the polls in the previous campaign-week}
+  \item{neg.dem}{the propotion of advertisements that were negative in a campaign-week}
+  \item{neg.dem.l1}{the proportion of advertisements that were negative in the previous campaign-week}
   \item{id}{candidate id}
  }
 }
@@ -30,7 +32,7 @@ A data frame with 565 rows and 17 columns: \describe{
 campaign_long
 }
 \description{
-A dataset containing 17 variables and 565 unit-week records on the campaign of 113 Democratic candidates
+A dataset containing 19 variables and 565 unit-week records on the campaign of 113 Democratic candidates
 in US Senate and Gubernatorial Elections from 2000 to 2006 (Blackwell 2013).
 }
 \references{
