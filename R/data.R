@@ -111,7 +111,7 @@
 #'   \item{density}{population density (people per sq mile)}
 #'   \item{CanCommute}{a dummy variable indicating whether it is possible to commute to the zip code from a competitive state}
 #'   \item{Cont}{campaign contributions (in thousands of dollars)}
-#'   \item{StFIPS}{state dummies}
+#'   \item{StFIPS}{state FIPS code}
 #'   }
 #' @references Fong, Christian, Chad Hazlett, and Kosuke Imai. 2018. Covariate Balancing Propensity Score for a Continuous
 #'   Treatment: Application to The Efficacy of Political Advertisements. The Annals of Applied Statistics 12(1):156-77.
@@ -136,11 +136,11 @@
 #'   \item{immoral}{a dummy variable indicating whether respondents thought it would be morally wrong to strike the country}
 #'   \item{ally}{a dummy variable indicating whether the country had signed a military alliance with the US}
 #'   \item{trade}{a dummy variable indicating whether the country had high levels of trade with the US}
-#'   \item{h1}{an index measuring respondent's attitudes toward militarism}
-#'   \item{i1}{an index measuring respondent's attitudes toward internationalism}
+#'   \item{h1}{an index measuring respondent's attitude toward militarism}
+#'   \item{i1}{an index measuring respondent's attitude toward internationalism}
 #'   \item{p1}{an index measuring respondent's identification with the Republican party}
-#'   \item{e1}{an index measuring respondent's attitudes toward ethnocentrism}
-#'   \item{r1}{an index measuring respondent's attitudes toward religiosity}
+#'   \item{e1}{an index measuring respondent's attitude toward ethnocentrism}
+#'   \item{r1}{an index measuring respondent's attitude toward religiosity}
 #'   \item{male}{a dummy variable indicating whether the respondent is male}
 #'   \item{white}{a dummy variable indicating whether the respondent is white}
 #'   \item{age}{respondent's age}

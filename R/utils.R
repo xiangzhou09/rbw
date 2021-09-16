@@ -1,4 +1,4 @@
-utils::globalVariables(c("C", "M", "Q"))
+utils::globalVariables(c("C", "M", "Q", "uniqueID"))
 
 # extract independent columns from a matrix
 pivot <- function(mat, eps = 1e-10) {
