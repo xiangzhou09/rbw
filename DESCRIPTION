@@ -12,17 +12,23 @@ Description: Residual balancing is a robust method of constructing weights for
   <doi:10.1017/pan.2020.2>). This package provides three functions, rbwATE(), rbwMed(), and rbwPanel(),
   that produce residual balancing weights for estimating (a), (b), (c), respectively.
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.5.0),
 Imports:
     dplyr (>= 0.8.4),
     stats,
     rlang (>= 0.4.4)
 Suggests:
+    knitr,
     ebal,
-    survey
+    survey,
+    CBPS,
+    rmarkdown,
+    kableExtra,
+    stargazer
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 URL: http://github.com/xiangzhou09/rbw
 BugReports: http://github.com/xiangzhou09/rbw
+VignetteBuilder: knitr

@@ -5,7 +5,7 @@
 \alias{campaign_long}
 \title{Long-format Data on Negative Campaign Advertising in US Senate and Gubernatorial Elections}
 \format{
-A data frame with 565 rows and 17 columns: \describe{
+A data frame with 565 rows and 19 columns: \describe{
   \item{demName}{name of the Democratic candidate}
   \item{d.gone.neg}{whether the candidate went negative in a campaign-week,
    defined as whether more than 10\% of the candidate's political advertising was negative}

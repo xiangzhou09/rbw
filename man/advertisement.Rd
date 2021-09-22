@@ -7,20 +7,20 @@
 \format{
 A data frame with 16,265 rows and 15 columns: \describe{
   \item{zip}{zip code}
-  \item{TotAds}{the total number of political advertisements aired in the zip code}
   \item{treat}{the Box-Cox transformed TotAds (Fong, Hazlett, and Imai 2018)}
+  \item{TotAds}{the total number of political advertisements aired in the zip code}
   \item{TotalPop}{population size}
-  \item{log_TotalPop}{log population}
-  \item{Inc}{median household income}
-  \item{log_Inc}{log median income}
   \item{PercentOver65}{percent of the population over 65}
+  \item{Inc}{median household income}
   \item{PercentHispanic}{percent Hispanic}
   \item{PercentBlack}{percent black}
-  \item{per_collegegrads}{percent college graduates}
   \item{density}{population density (people per sq mile)}
+  \item{per_collegegrads}{percent college graduates}
   \item{CanCommute}{a dummy variable indicating whether it is possible to commute to the zip code from a competitive state}
-  \item{Cont}{campaign contributions (in thousands of dollars)}
   \item{StFIPS}{state FIPS code}
+  \item{Cont}{campaign contributions (in thousands of dollars)}
+  \item{log_TotalPop}{log population}
+  \item{log_Inc}{log median income}
   }
 }
 \usage{

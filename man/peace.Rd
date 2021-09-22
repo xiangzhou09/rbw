@@ -7,10 +7,6 @@
 \format{
 A data frame with 1,273 rows and 17 columns: \describe{
   \item{threatc}{number of adverse events respondents considered probable if the US did not engage in war}
-  \item{cost}{number of negative consequences anticipated if the US engaged in war}
-  \item{successc}{whether the respondent thought the operation would succeed. 0: less than 50-50 chance of working even in the short run; 1: efficacious only in the short run; 2: successful both in the short and long run}
-  \item{democ}{a dummy variable indicating whether the country was a democracy}
-  \item{immoral}{a dummy variable indicating whether respondents thought it would be morally wrong to strike the country}
   \item{ally}{a dummy variable indicating whether the country had signed a military alliance with the US}
   \item{trade}{a dummy variable indicating whether the country had high levels of trade with the US}
   \item{h1}{an index measuring respondent's attitude toward militarism}
@@ -22,7 +18,11 @@ A data frame with 1,273 rows and 17 columns: \describe{
   \item{white}{a dummy variable indicating whether the respondent is white}
   \item{age}{respondent's age}
   \item{ed4}{respondent's education with categories ranging from high school or less to postgraduate degree}
+  \item{democ}{a dummy variable indicating whether the country was a democracy}
   \item{strike}{a measure of support for war on a five-point scale}
+  \item{cost}{number of negative consequences anticipated if the US engaged in war}
+  \item{successc}{whether the respondent thought the operation would succeed. 0: less than 50-50 chance of working even in the short run; 1: efficacious only in the short run; 2: successful both in the short and long run}
+  \item{immoral}{a dummy variable indicating whether respondents thought it would be morally wrong to strike the country}
   }
 }
 \usage{
