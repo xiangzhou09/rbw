@@ -51,7 +51,7 @@ m2 <- lm(undother ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
 xmodels <- list(m1, m2)
 
 # residual balancing weights
-rbwPanel_fit <- rbwPanel(exposure = d.gone.neg, xmodels = xmodels, id = id, time = week, data = campaign_long)
+rbwPanel_fit <- rbwPanel(treatment = d.gone.neg, xmodels = xmodels, id = id, time = week, data = campaign_long)
 
 # merge weights into wide-format data
 campaign_wide2 <- merge(campaign_wide, rbwPanel_fit$weights, by = "id")
@@ -64,28 +64,31 @@ summary(msm_rbw)
 
 ## Estimating Controlled Direct Effects (CDE)
 
-In causal mediation analysis, the `rbwMed()` function can be used to construct residual balancing weights for estimating the controlled direct effect or the controlled mediator effect with a marginal structural model. The following example illustrates its use by estimating the controlled direct effect of college education (`college`) on depression at age 40 (`cesd40`) at different levels of socioeconomic status (`ses`) for a subsample of respondents in the National Longitudinal Survey of Youth, 1979.
+In causal mediation analysis, the `rbwMed()` function can be used to construct residual balancing weights for estimating the controlled direct effect or the controlled mediator effect with a marginal structural model. The following example illustrates its use by estimating the controlled direct effect of shared democracy (`democ`) on public support for war (`strike`) at different levels of perceived morality of war (`immoral`) for a sample of respondents in a survey experiment.
 
 ```{r, message = FALSE}
 # models for post-treatment confounders
-m1 <- lm(cesd92 ~ female + race + momedu + parinc + afqt3 +
-  educexp + college, data = education)
-m2 <- lm(prmarr98 ~ female + race + momedu + parinc + afqt3 +
-  educexp + college, data = education)
-m3 <- lm(transitions98 ~ female + race + momedu + parinc + afqt3 +
-  educexp + college, data = education)
+m1 <- lm(threatc ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
+  male + white + age + ed4 + democ, data = peace)
+
+m2 <- lm(cost ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
+  male + white + age + ed4 + democ, data = peace)
+
+m3 <- lm(successc ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
+  male + white + age + ed4 + democ, data = peace)
 
 # residual balancing weights
-rbwMed_fit <- rbwMed(treatment = college, mediator = ses,
-  zmodels = list(m1, m2, m3), baseline_x = female:educexp,
-  interact = TRUE, base_weights = weights, data = education)
+rbwMed_fit <- rbwMed(treatment = democ, mediator = immoral,
+  zmodels = list(m1, m2, m3), interact = TRUE,
+  baseline_x = c(ally, trade, h1, i1, p1, e1, r1, male, white, age, ed4),
+  data = peace)
 
 # attach residual balancing weights to data
-education$rbw <- rbwMed_fit$weights
+peace$rbw_cde <- rbwMed_fit$weights
 
 # fit marginal structural model
-rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw, data = education)
-msm_rbw <- svyglm(cesd40 ~ college * ses, design = rbw_design)
-summary(msm_rbw)
+rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw_cde, data = peace)
+msm_rbwMed <- svyglm(strike ~ democ * immoral, design = rbw_design)
+summary(msm_rbwMed)
 ```
 
