@@ -26,11 +26,11 @@ A data frame with 113 rows and 26 columns: \describe{
   \item{d.gone.neg_3}{whether the candidate went negative in week 3}
   \item{d.gone.neg_4}{whether the candidate went negative in week 4}
   \item{d.gone.neg_5}{whether the candidate went negative in week 5}
-  \item{neg.dem_1}{the propotion of advertisements that were negative in week 1 polls}
-  \item{neg.dem_2}{the propotion of advertisements that were negative in week 2 polls}
-  \item{neg.dem_3}{the propotion of advertisements that were negative in week 3 polls}
-  \item{neg.dem_4}{the propotion of advertisements that were negative in week 4 polls}
-  \item{neg.dem_5}{the propotion of advertisements that were negative in week 5 polls}
+  \item{neg.dem_1}{the proportion of advertisements that were negative in week 1 polls}
+  \item{neg.dem_2}{the proportion of advertisements that were negative in week 2 polls}
+  \item{neg.dem_3}{the proportion of advertisements that were negative in week 3 polls}
+  \item{neg.dem_4}{the proportion of advertisements that were negative in week 4 polls}
+  \item{neg.dem_5}{the proportion of advertisements that were negative in week 5 polls}
   \item{undother_1}{share of undecided voters in week 1 polls}
   \item{undother_2}{share of undecided voters in week 2 polls}
   \item{undother_3}{share of undecided voters in week 3 polls}

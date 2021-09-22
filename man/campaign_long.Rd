@@ -23,7 +23,7 @@ A data frame with 565 rows and 19 columns: \describe{
   \item{dem.polls.l1}{Democratic share in the polls in the previous campaign-week}
   \item{undother}{share of undecided voters in the polls}
   \item{undother.l1}{share of undecided voters in the polls in the previous campaign-week}
-  \item{neg.dem}{the propotion of advertisements that were negative in a campaign-week}
+  \item{neg.dem}{the proportion of advertisements that were negative in a campaign-week}
   \item{neg.dem.l1}{the proportion of advertisements that were negative in the previous campaign-week}
   \item{id}{candidate id}
  }
