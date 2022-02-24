@@ -1,0 +1,34 @@
+citHeader("To cite the 'rbw' package in publications use:")
+
+year <- sub("-.*", "", meta$Date)
+vers <- paste("R package version", meta$Version)
+
+bibentry(bibtype = "Manual",
+         title = "{rbw}: Residual Balancing Weights for Marginal Structural Models",
+         author = c(person("Xiang", "Zhou", email = "xiang_zhou@fas.harvard.edu", role = "cre"),
+                    person("Derick da Silva", "Baum", email = "derick_baum@g.harvard.edu", role = "aut")),
+         year = year,
+         note = vers,
+         url = "https://CRAN.R-project.org/package=rbw",
+         textVersion = paste0(
+             "Zhou, Xiang, and Derick S. Baum. ", year, ". ", "rbw: Residual Balancing Weights for Marginal Structural Models. ", vers, ". ", "https://CRAN.R-project.org/package=rbw", "."))
+
+bibentry(
+  bibtype = "Article",
+  title = "Residual Balancing: A Method of Constructing Weights for Marginal Structural Models",
+  author = c(person("Xiang", "Zhou"),
+             person("Geoffrey T.", "Wodtke")),
+  journal = "Political Analysis",
+  year = "2020",
+  pages = "487--506",
+  volume = "28",
+  number = "4",
+  textVersion =
+    paste0(
+      "Zhou, Xiang, and Geoffrey T. Wodtke. ",
+      "Residual Balancing: A Method of Constructing Weights for Marginal
+Structural Models. ",
+      "Political Analysis, ",
+      "28(4):487-506, ",
+      "2020."))
+  

@@ -10,20 +10,11 @@ Description: Residual balancing is a robust method of constructing weights for
   marginal structural models, which can be used to estimate (a) the average treatment effect in 
   a cross-sectional observational study, (b) controlled direct/mediator effects in causal mediation
   analysis, and (c) the effects of time-varying treatments in panel data (Zhou and Wodtke 2020
-  <doi:10.1017/pan.2020.2>). This package provides three functions, rbwPoint(), rbwMed(), and rbwPanel(),
+  <doi:10.1017/pan.2020.2>). This package provides three functions, rbwATE(), rbwMed(), and rbwPanel(),
   that produce residual balancing weights for estimating (a), (b), (c), respectively.
-Depends:
-    R (>= 3.5.0),
-Imports:
-    dplyr (>= 0.8.4),
-    stats,
-    rlang (>= 0.4.4)
-Suggests:
-    knitr,
-    ebal,
-    survey,
-    rmarkdown,
-    testthat (>= 3.0.0)
+Depends: R (>= 3.5.0),
+Imports: dplyr (>= 0.8.4), stats, rlang (>= 0.4.4)
+Suggests: knitr, ebal, survey, rmarkdown, testthat (>= 3.0.0)
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -31,3 +22,8 @@ RoxygenNote: 7.1.1
 URL: https://github.com/xiangzhou09/rbw
 BugReports: https://github.com/xiangzhou09/rbw
 Config/testthat/edition: 3
+NeedsCompilation: no
+Packaged: 2022-02-24 21:04:21 UTC; Xiang Zhou
+Author: Xiang Zhou [cre],
+  Derick da Silva Baum [aut]
+Maintainer: Xiang Zhou <xiang_zhou@fas.harvard.edu>

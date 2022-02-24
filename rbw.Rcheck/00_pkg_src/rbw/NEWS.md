@@ -1,8 +1,3 @@
-# rbw 0.3.1
-
-* renamed the rbwATE() function to rbwPoint()
-* added unit tests
-
 # rbw 0.3.0
 
 * added the rbwATE() function for estimating the average treatment effect (ATE)

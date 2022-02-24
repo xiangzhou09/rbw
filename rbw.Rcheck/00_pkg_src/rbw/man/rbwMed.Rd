@@ -28,8 +28,7 @@ post-treatment confounder, set it to be \code{NULL}.}
 
 \item{data}{A data frame containing all variables in the model.}
 
-\item{baseline_x}{(Optional) An expression for a set of baseline confounders stored in \code{data} or
-a character vector of the names of the baseline confounders.}
+\item{baseline_x}{(Optional) An expression for a set of baseline confounders stored in \code{data}.}
 
 \item{interact}{A logical variable indicating whether baseline and post-treatment covariates
 should be balanced against the treatment-mediator interaction term(s).}

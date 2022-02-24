@@ -9,8 +9,7 @@
 #' @param zmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   post-treatment confounders of the mediator-outcome relationship. If there's no
 #'   post-treatment confounder, set it to be \code{NULL}.
-#' @param baseline_x (Optional) An expression for a set of baseline confounders stored in \code{data} or
-#'  a character vector of the names of the baseline confounders.
+#' @param baseline_x (Optional) An expression for a set of baseline confounders stored in \code{data}.
 #' @param interact A logical variable indicating whether baseline and post-treatment covariates
 #'   should be balanced against the treatment-mediator interaction term(s).
 #' @inheritParams eb2
@@ -87,11 +86,10 @@ rbwMed <- function(treatment, mediator, zmodels, data,
 
   # construct xmodels for baseline confounders
   if(!missing(baseline_x)) {
-    baseline_x <- enquo(baseline_x)
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
-    vars <- eval_tidy(baseline_x, nl)
-    xnames <- if(is.character(vars)) vars else names(data)[vars]
+    vars <- eval_tidy(enexpr(baseline_x), nl)
+    xnames <- names(data)[vars]
     xform <- paste("~", paste(xnames, collapse = "+"))
     x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]
     xmodels <- apply(x, 2, function(y) lm(y ~ 1, weights = bweights))

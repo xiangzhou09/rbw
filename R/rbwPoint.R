@@ -1,11 +1,12 @@
-#' Residual Balancing Weights for Estimating the Average Treatment Effect (ATE)
+#' Residual Balancing Weights for Estimating the Average Treatment Effect (ATE) in a Point Treatment Situation
 #'
-#' \code{rbwATE} is a function that produces residual balancing weights for
-#' estimating the average treatment effect (ATE). The weights can be used to fit marginal
-#' structural models for the effect of the treatment on the outcome.
+#' \code{rbwPoint} is a function that produces residual balancing weights for
+#' estimating the average treatment effect (ATE) in a point treatment situation.
+#' The weights can be used to fit marginal structural models for the effect of the treatment on the outcome.
 #'
 #' @param treatment A symbol or character string for the treatment variable.
-#' @param baseline_x An expression for a set of baseline confounders stored in \code{data}.
+#' @param baseline_x An expression for a set of baseline confounders stored in \code{data} or a character
+#'  vector of the names of the baseline confounders.
 #' @inheritParams rbwMed
 #'
 #' @return A list containing the results.
@@ -17,23 +18,23 @@
 #'
 #' @examples
 #' # residual balancing weights
-#' rbwATE_fit <- rbwATE(treat, baseline_x = c(log_TotalPop, PercentOver65, log_Inc,
+#' rbwPoint_fit <- rbwPoint(treat, baseline_x = c(log_TotalPop, PercentOver65, log_Inc,
 #'   PercentHispanic, PercentBlack, density,
 #'   per_collegegrads, CanCommute), data = advertisement)
 #'
 #' # attach residual balancing weights to data
-#' advertisement$rbw_ate <- rbwATE_fit$weights
+#' advertisement$rbw_point <- rbwPoint_fit$weights
 #'
 #' # fit marginal structural model
 #' if(require(survey)){
-#'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw_ate, data = advertisement)
+#'   rbw_design <- svydesign(ids = ~ 1, weights = ~ rbw_point, data = advertisement)
 #'   # the outcome model includes the treatment, the square of the treatment,
 #'   # and state-level fixed effects (Fong, Hazlett, and Imai 2018)
-#'   msm_rbwATE <- svyglm(Cont ~ treat + I(treat^2) + factor(StFIPS), design = rbw_design)
-#'   summary(msm_rbwATE)
+#'   msm_rbwPoint <- svyglm(Cont ~ treat + I(treat^2) + factor(StFIPS), design = rbw_design)
+#'   summary(msm_rbwPoint)
 #' }
 #'
-rbwATE <- function(treatment, data, baseline_x, base_weights,
+rbwPoint <- function(treatment, data, baseline_x, base_weights,
                    max_iter = 200, print_level = 1, tol = 1e-6) {
 
   # match call
@@ -58,10 +59,11 @@ rbwATE <- function(treatment, data, baseline_x, base_weights,
 
   # construct xmodels for baseline confounders
   if(!missing(baseline_x)) {
+    baseline_x <- enquo(baseline_x)
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
-    vars <- eval_tidy(enexpr(baseline_x), nl)
-    xnames <- names(data)[vars]
+    vars <- eval_tidy(baseline_x, nl)
+    xnames <- if(is.character(vars)) vars else names(data)[vars]
     xform <- paste("~", paste(xnames, collapse = "+"))
     x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]
     xmodels <- apply(x, 2, function(y) lm(y ~ 1, weights = bweights))
