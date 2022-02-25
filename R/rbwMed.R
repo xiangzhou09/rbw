@@ -2,7 +2,8 @@
 #'
 #' \code{rbwMed} is a function that produces residual balancing weights for estimating
 #' controlled direct/mediator effects in causal mediation analysis. The weights can be used to
-#' fit marginal structural models for the joint effects of the treatment and a mediator.
+#' fit marginal structural models for the joint effects of the treatment and a mediator on an
+#' outcome of interest.
 #'
 #' @param treatment A symbol or character string for the treatment variable.
 #' @param mediator A symbol or character string for the mediator variable.
@@ -10,7 +11,7 @@
 #'   post-treatment confounders of the mediator-outcome relationship. If there's no
 #'   post-treatment confounder, set it to be \code{NULL}.
 #' @param baseline_x (Optional) An expression for a set of baseline confounders stored in \code{data} or
-#'  a character vector of the names of the baseline confounders.
+#'  a character vector of the names of these variables.
 #' @param interact A logical variable indicating whether baseline and post-treatment covariates
 #'   should be balanced against the treatment-mediator interaction term(s).
 #' @inheritParams eb2

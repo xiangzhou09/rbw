@@ -79,7 +79,7 @@
 #'
 #' @format A data frame with 16,265 rows and 15 columns: \describe{
 #'   \item{zip}{zip code}
-#'   \item{treat}{the Box-Cox transformed TotAds (Fong, Hazlett, and Imai 2018)}
+#'   \item{treat}{the log transformed TotAds}
 #'   \item{TotAds}{the total number of political advertisements aired in the zip code}
 #'   \item{TotalPop}{population size}
 #'   \item{PercentOver65}{percent of the population over 65}

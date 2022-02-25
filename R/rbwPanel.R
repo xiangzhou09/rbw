@@ -8,7 +8,7 @@
 #' the regressors of \eqn{X_t}. In addition, when \code{future > 0},
 #' the residuals are also balanced across future treatments \eqn{D_{t+1},\ldots D_{t + future}}.
 #'
-#' @param treatment A symbol or character string for the treatment/treatment variable.
+#' @param treatment A symbol or character string for the treatment variable.
 #' @param xmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   time-varying confounders.
 #' @param id A symbol or character string for the unit id variable.
@@ -21,9 +21,9 @@
 #' @inheritParams eb2
 #'
 #' @return A list containing the results.
-#'  \item{weights}{A data frame containing id and residual balancing weights.}
+#'  \item{weights}{A data frame containing the unit id variable and residual balancing weights.}
 #'  \item{constraints}{A matrix of (linearly independent) residual balancing constraints}
-#'  \item{eb_out}{Results from calling \code{\link{eb2}} function}
+#'  \item{eb_out}{Results from calling the \code{\link{eb2}} function}
 #'  \item{call}{The matched call.}
 #' @export
 #' @import rlang

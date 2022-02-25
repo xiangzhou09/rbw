@@ -1,12 +1,11 @@
-#' Residual Balancing Weights for Estimating the Average Treatment Effect (ATE) in a Point Treatment Situation
+#' Residual Balancing Weights for Estimating the Average Treatment Effect (ATE) in a Point Treatment Setting
 #'
-#' \code{rbwPoint} is a function that produces residual balancing weights for
-#' estimating the average treatment effect (ATE) in a point treatment situation.
-#' The weights can be used to fit marginal structural models for the effect of the treatment on the outcome.
+#' \code{rbwPoint} is a function that produces residual balancing weights in a point treatment setting.
+#' The weights can be used to fit marginal structural models to estimate the average treatment effect (ATE).
 #'
 #' @param treatment A symbol or character string for the treatment variable.
 #' @param baseline_x An expression for a set of baseline confounders stored in \code{data} or a character
-#'  vector of the names of the baseline confounders.
+#'  vector of the names of these variables.
 #' @inheritParams rbwMed
 #'
 #' @return A list containing the results.

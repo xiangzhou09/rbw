@@ -18,7 +18,7 @@ rbwPanel(
 )
 }
 \arguments{
-\item{treatment}{A symbol or character string for the treatment/treatment variable.}
+\item{treatment}{A symbol or character string for the treatment variable.}
 
 \item{xmodels}{A list of fitted \code{lm} or \code{glm} objects for
 time-varying confounders.}
@@ -49,9 +49,9 @@ current treatment \eqn{D_t}, but also with respect to future treatments \eqn{D_{
 }
 \value{
 A list containing the results.
- \item{weights}{A data frame containing id and residual balancing weights.}
+ \item{weights}{A data frame containing the unit id variable and residual balancing weights.}
  \item{constraints}{A matrix of (linearly independent) residual balancing constraints}
- \item{eb_out}{Results from calling \code{\link{eb2}} function}
+ \item{eb_out}{Results from calling the \code{\link{eb2}} function}
  \item{call}{The matched call.}
 }
 \description{

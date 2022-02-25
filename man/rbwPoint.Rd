@@ -2,7 +2,7 @@
 % Please edit documentation in R/rbwPoint.R
 \name{rbwPoint}
 \alias{rbwPoint}
-\title{Residual Balancing Weights for Estimating the Average Treatment Effect (ATE) in a Point Treatment Situation}
+\title{Residual Balancing Weights for Estimating the Average Treatment Effect (ATE) in a Point Treatment Setting}
 \usage{
 rbwPoint(
   treatment,
@@ -20,7 +20,7 @@ rbwPoint(
 \item{data}{A data frame containing all variables in the model.}
 
 \item{baseline_x}{An expression for a set of baseline confounders stored in \code{data} or a character
-vector of the names of the baseline confounders.}
+vector of the names of these variables.}
 
 \item{base_weights}{(Optional) A vector of base weights (or its name).}
 
@@ -44,9 +44,8 @@ A list containing the results.
  \item{call}{The matched call.}
 }
 \description{
-\code{rbwPoint} is a function that produces residual balancing weights for
-estimating the average treatment effect (ATE) in a point treatment situation.
-The weights can be used to fit marginal structural models for the effect of the treatment on the outcome.
+\code{rbwPoint} is a function that produces residual balancing weights in a point treatment setting.
+The weights can be used to fit marginal structural models to estimate the average treatment effect (ATE).
 }
 \examples{
 # residual balancing weights
