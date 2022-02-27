@@ -284,7 +284,7 @@ and takes the following arguments:
 * \code{treatment}, \code{data}, \code{base\_weights}, \code{max\_iter}, \code{print\_level}, and \code{tol} are defined as in \code{rbwPoint()}.
 * \code{baseline\_x} is an \emph{optional} expression for a set of baseline confounders stored in \code{data} or a character vector of the names of these variables.
 * \code{mediator} is a symbol or character string representing the mediator variable.
-* \code{zmodels} is a list of fited \code{lm} or \code{glm} objects for post-treatment confounders of the mediator-outcome relationship. Users should set this argument to \code{NULL} if there are no post-treatment confounders.
+* \code{zmodels} is a list of fitted \code{lm} or \code{glm} objects for post-treatment confounders of the mediator-outcome relationship. Users should set this argument to \code{NULL} if there are no post-treatment confounders.
 * \code{interact} is a logical variable indicating whether baseline and post-treatment confounders should be balanced against the treatment-mediator interaction term(s).
 
 The output returned by \code{rbwMed()} is a list containing the same elements as the output from \code{rbwPoint()}. 
@@ -670,7 +670,7 @@ We summarize the results in Table \ref{mediation-comparison}. The estimated CDE 
   & (0.210) & (0.157) \\ 
 \bottomrule \\[-1.8ex] 
 \multicolumn{3}{l}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
-\multicolumn{3}{l}{Robust standard erros in parentheses.} \\ 
+\multicolumn{3}{l}{Robust standard errors in parentheses.} \\ 
 \end{tabular} 
 \end{table} 
 
