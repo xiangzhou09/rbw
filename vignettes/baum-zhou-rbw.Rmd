@@ -60,8 +60,6 @@ In the sections that follow, we present an overview of the residual balancing me
 
 # Overview of residual balancing {short-title="Residual Balancing" #residual-balancing}
 
-This section gives an overview of RBW. We first describe the notation used throughout the paper and briefly review MSMs. Next, we explain the underlying logic of RBW and provide an intuition for how the method works using a directed acyclic graph (DAG).
-
 ## Notation
 
 Assume we have a study with $T\ge2$ time points, and we are interested in the effect of a time-varying treatment, $A_{t}$ ($1\le t \le T$), on some end-of-study outcome $Y$. We also have a vector of observed time-varying confounders, $L_{t}$, at each time point, which may be affected by prior treatments. $\bar{A}_{t}=(A_{1},...,A_{t})$ and $\bar{L}_{t}=(L_{1},...,L_{t})$ denote treatment and covariate histories up to time $t$. Furthermore, $\bar{A}=\bar{A}_{T}$ and $\bar{L}=\bar{L}_{T}$ represent a respondent's complete treatment and covariate histories, respectively. Finally, let $Y(\bar{a})$ be the potential outcome under some treatment history $\bar{a}$.
@@ -146,38 +144,7 @@ A typical implementation of residual balancing can be summarized in three steps:
     b) the relative entroy between $rbw_{i}$ and the base weights $q_{i}$ is minimized. 
 3. Use the weights to fit an MSM. 
 
-Figure \ref{fig:1} depicts the logic of RBW in a DAG. Following the notation described above, $A_{t}$ denotes our time-varying treatment, $L_{t}$ is a vector of time-varying confounders, and $Y$ is our end-of-study outcome. Further, assume two time points, $t=1,2$. The $rbw_{i}$ weights break the dependence between $A_{t}$ and $\bar{L}_{t}$ at each time point. That is, the weights create a pseudo-population where the confounding arrows $L_{1}\rightarrow A_{1}$, $L_{1}\rightarrow A_{2}$, and $L_{2}\rightarrow A_{2}$ are broken while all others are preserved. It is important to note that $L_{1}$ is \emph{marginally} independent of both $A_{1}$ and $A_{2}$ in the pseudo-population, but $L_{2}$ is \emph{conditionally} independent of $A_{2}$, given $L_{1}$ and $A_{1}$. Hence, RBW invokes a model for the conditional mean of $L_{2}$ given $L_{1}$ and $A_{1}$ and balances the residuals from this model across levels of $A_{2}$ and levels of $(L_{1}, A_{1})$ (the observed past). This procedure avoids overcontrol and collider-stratification bias when adjusting for post-treatment confounding because it breaks the confounding arrow $L_{2}\rightarrow A_{2}$ while leaving the causal arrow $A_{1}\rightarrow L_{2}$ intact. 
-
 Finally, since $\mathbb{E}^{*}[Y|\bar{A}=\bar{a}]=\mathbb{E}^{*}[Y(\bar{a})]=\mathbb{E}[Y(\bar{a})]$ in the pseudo-population, we can estimate the marginal effects of interest by fitting a model for the conditional mean of the observed outcome given the treatment history (and possibly a set of baseline confounders) with weights equal to $rbw_{i}$.  
-
-\begin{figure} [ht]
-\begin{center}
-\begin{tikzpicture}
-% nodes %
-\node (L1) at (0, 0) {\large $L_{1}$};
-\node (L2) at (5, 0) {\large $L_{2}$};
-\node (A1) at (0, -5) {\large $A_{1}$};
-\node (A2) at (5, -5) {\large $A_{2}$};
-\node (Y) at (10, -5) {\large $Y$};
-\node[red] at (0, -2.5) {\large X};
-\node[red] at (5, -2) {\large X};
-\node[red] at (2, -2) {\large X};
-% edges %
-\draw [->, line width= 1.5] (L1) -- (L2);
-\draw [->, red, loosely dashed, line width= 1.5] (L1) -- (A1);
-\draw [->, red, loosely dashed, line width= 1.5] (L1) -- (A2);
-\draw [->, red, loosely dashed, line width= 1.5] (L2) -- (A2);
-\draw [->, line width= 1.5] (A1) -- (A2);
-\draw [->, line width= 1.5] (A1) to[out=-90,in=-90] (Y);
-\draw [->, line width= 1.5] (A1) -- (L2);
-\draw [->, line width= 1.5] (L1) -- (Y);
-\draw [->, line width= 1.5] (A2) -- (Y);
-\draw [->, line width= 1.5] (L2) -- (Y);
-\end{tikzpicture}
-\end{center}
-\caption{The underlying logic of residual balancing.}
-\label{fig:1}
-\end{figure}
 
 # Uses of residual balancing {short-title="Uses" #uses}
 
@@ -192,26 +159,6 @@ RBW can be easily adapted to a point treatment situation where the user aims onl
     a) in the weighted sample, the residuals $\hat{\delta}(x_{ij})$ are orthogonal to the treatment;
     b) the relative entropy between $rbw_{i}$ and the base weights $q_{i}$ is minimized.
 3. Use the weights to fit an MSM.
-
-The DAG of Figure \ref{fig:2} illustrates the point treatment situation. $A$ represents the one-shot treatment, $X$ is a vector of baseline confounders, and $Y$ denotes our outcome. Weighting the observed population by $rbw_{i}$ mimics a pseudo-population where the link between $A$ and $X$ is broken. We can then fit a model for the conditional mean of $Y$ given $A$ to estimate the causal effects of interest.^[The vector $X$ captures all confounding under the ignorability assumption.]
-
-\begin{figure} [ht]
-\begin{center}
-\begin{tikzpicture}
-% nodes %
-\node (A) at (0, 0) {\large $A$};
-\node (Y) at (5, 0) {\large $Y$};
-\node (X) at (0, 5) {\large $X$};
-\node[red] at (0, 2.5) {\large X};
-% edges %
-\draw [->, line width= 1.5] (A) -- (Y);
-\draw [->, red, loosely dashed, line width= 1.5] (X) -- (A);
-\draw [->, line width= 1.5] (X) -- (Y);
-\end{tikzpicture}
-\end{center}
-\caption{RBW in a Point Treatment.}
-\label{fig:2}
-\end{figure}
 
 ## RBW in causal mediation analysis {short-title="RBW Mediation" #rbw-mediation}
 
@@ -484,7 +431,7 @@ rbwPoint_se <- 1000 * dose * sqrt(rbwPoint_vcov[2, 2])
 
 We also report the results using the functions from the \CRANpkg{CBPS} and \CRANpkg{ipw} packages. Recall from the introduction that the parametric CBPS is similar to IPW in that it requires explicit models for the conditional distributions of the treatment. However, it improves IPW by considering a set of balancing conditions during the propensity score estimation, thereby reducing sensitivity to model misspecification. By contrast, the nonparametric CBPS (npCBPS) does not require direct estimation of the propensity score; instead, it finds weights that maximize the empirical likelihood while meeting a set of balancing constraints. As such, like RBW, it avoids the need to specify a propensity score model. Readers can find the code detailing the construction of the CBPS and IPW weights in the supplementary material. 
 
-```{r include = FALSE, cache = TRUE}
+```{r include = FALSE, cache = FALSE}
 CBPS_pscore_form <- treat ~ log_TotalPop + PercentOver65 +
   log_Inc + PercentHispanic + PercentBlack +
   density + per_collegegrads + CanCommute
@@ -843,7 +790,7 @@ We conclude by comparing RBW's computational performance to CBPS for a dichotomi
 
 Let us first construct the RBW weights. The steps are identical to the ones detailed above for the continuous treatment, the only change being the name of our treatment variable. Next, we use the \code{CBMSM()} function from the \code{CBPS} package to generate our CBPS weights. To facilitate comparisons of computation time, we also call \code{Sys.time()} before and after running the functions that produce the weights in each package. The scalar objects \code{rbwPanel\_time} and \code{CBPSPanel\_time} store how long each method takes to construct the corresponding weights. 
 
-```{r include = FALSE, cache = TRUE}
+```{r include = FALSE, cache = FALSE}
 m1 <-
   lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
      data = campaign_long)
@@ -889,7 +836,7 @@ rbwPanel_end <- Sys.time()
 rbwPanel_time <- rbwPanel_end - rbwPanel_start
 ```
 
-```{r message = FALSE, cache = TRUE}
+```{r message = FALSE, cache = FALSE}
 CBPSPanel_form <-
   "d.gone.neg ~ d.gone.neg.l1 + dem.polls + undother + camp.length + deminc + office + factor(year)"
 
