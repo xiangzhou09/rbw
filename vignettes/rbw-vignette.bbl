@@ -1,0 +1,238 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Blackwell(2013)]{blackwellFrameworkDynamicCausal2013}
+M.~Blackwell.
+\newblock A {{Framework}} for {{Dynamic Causal Inference}} in {{Political
+  Science}}.
+\newblock 57\penalty0 (2):\penalty0 504--520, 2013.
+\newblock ISSN 0092-5853.
+\newblock \doi{10.1111/j.1540-5907.2012.00626.x}.
+
+\bibitem[Cole and Hern{\'a}n(2008)]{coleConstructingInverseProbability2008a}
+S.~R. Cole and M.~A. Hern{\'a}n.
+\newblock Constructing {{Inverse Probability Weights}} for {{Marginal
+  Structural Models}}.
+\newblock \emph{American Journal of Epidemiology}, 168\penalty0 (6):\penalty0
+  656--664, 2008.
+\newblock ISSN 0002-9262.
+\newblock \doi{10.1093/aje/kwn164}.
+
+\bibitem[Fong et~al.(2018)Fong, Hazlett, and
+  Imai]{fongCovariateBalancingPropensity2018}
+C.~Fong, C.~Hazlett, and K.~Imai.
+\newblock Covariate balancing propensity score for a continuous treatment:
+  {{Application}} to the efficacy of political advertisements.
+\newblock \emph{The Annals of Applied Statistics}, 12\penalty0 (1), 2018.
+\newblock ISSN 1932-6157.
+\newblock \doi{10.1214/17-AOAS1101}.
+
+\bibitem[Fong et~al.(2021)Fong, Ratkovic, and Imai]{R-CBPS}
+C.~Fong, M.~Ratkovic, and K.~Imai.
+\newblock \emph{CBPS: Covariate Balancing Propensity Score}, 2021.
+\newblock URL \url{https://CRAN.R-project.org/package=CBPS}.
+\newblock R package version 0.22.
+
+\bibitem[Geskus and {van der Wal}(2015)]{R-ipw}
+R.~B. Geskus and W.~M. {van der Wal}.
+\newblock \emph{ipw: Estimate Inverse Probability Weights}, 2015.
+\newblock URL \url{https://CRAN.R-project.org/package=ipw}.
+\newblock R package version 1.0-11.
+
+\bibitem[Hainmueller(2012)]{hainmuellerEntropyBalancingCausal2012}
+J.~Hainmueller.
+\newblock Entropy {{Balancing}} for {{Causal Effects}}: {{A Multivariate
+  Reweighting Method}} to {{Produce Balanced Samples}} in {{Observational
+  Studies}}.
+\newblock \emph{Political Analysis}, 20\penalty0 (1):\penalty0 25--46, 2012.
+\newblock ISSN 1047-1987.
+\newblock \doi{10.1093/pan/mpr025}.
+
+\bibitem[Hainmueller(2014)]{R-ebal}
+J.~Hainmueller.
+\newblock \emph{ebal: Entropy reweighting to create balanced samples}, 2014.
+\newblock URL \url{https://CRAN.R-project.org/package=ebal}.
+\newblock R package version 0.1-6.
+
+\bibitem[Hern{\'a}n et~al.(2000)Hern{\'a}n, Brumback, and
+  Robins]{hernanMarginalStructuralModels2000}
+M.~{\'A}. Hern{\'a}n, B.~Brumback, and J.~M. Robins.
+\newblock Marginal {{Structural Models}} to {{Estimate}} the {{Causal Effect}}
+  of {{Zidovudine}} on the {{Survival}} of {{HIV-Positive Men}}.
+\newblock \emph{Epidemiology (Cambridge, Mass.)}, 11\penalty0 (5):\penalty0
+  561--570, 2000.
+\newblock ISSN 1044-3983.
+\newblock \doi{10.1097/00001648-200009000-00012}.
+
+\bibitem[Hern{\'a}n et~al.(2002)Hern{\'a}n, Brumback, and
+  Robins]{hernanEstimatingCausalEffect2002}
+M.~A. Hern{\'a}n, B.~A. Brumback, and J.~M. Robins.
+\newblock Estimating the causal effect of zidovudine on {{CD4}} count with a
+  marginal structural model for repeated measures.
+\newblock \emph{Statistics in medicine}, 21\penalty0 (12):\penalty0 1689--1709,
+  2002.
+\newblock ISSN 0277-6715.
+\newblock \doi{10.1002/sim.1144}.
+
+\bibitem[Imai and Kim(2019)]{imaiWhenShouldWe2019}
+K.~Imai and I.~S. Kim.
+\newblock When {{Should We Use Unit Fixed Effects Regression Models}} for
+  {{Causal Inference}} with {{Longitudinal Data}}?
+\newblock \emph{American Journal of Political Science}, 63\penalty0
+  (2):\penalty0 467--490, 2019.
+\newblock ISSN 0092-5853.
+\newblock \doi{10.1111/ajps.12417}.
+
+\bibitem[Imai and Ratkovic(2014)]{imaiCovariateBalancingPropensity2014}
+K.~Imai and M.~Ratkovic.
+\newblock Covariate {{Balancing Propensity Score}}.
+\newblock \emph{Journal of the Royal Statistical Society. Series B, Statistical
+  Methodology}, 76\penalty0 (1):\penalty0 243--263, 2014.
+\newblock ISSN 1369-7412.
+\newblock \doi{10.1111/rssb.12027}.
+
+\bibitem[Imai and Ratkovic(2015)]{imaiRobustEstimationInverse2015}
+K.~Imai and M.~Ratkovic.
+\newblock Robust {{Estimation}} of {{Inverse Probability Weights}} for
+  {{Marginal Structural Models}}.
+\newblock \emph{Journal of the American Statistical Association}, 110\penalty0
+  (511):\penalty0 1013--1023, 2015.
+\newblock ISSN 0162-1459.
+\newblock \doi{10.1080/01621459.2014.956872}.
+
+\bibitem[Imai et~al.(2010)Imai, Keele, and
+  Yamamoto]{imaiIdentificationInferenceSensitivity2010}
+K.~Imai, L.~Keele, and T.~Yamamoto.
+\newblock Identification, {{Inference}} and {{Sensitivity Analysis}} for
+  {{Causal Mediation Effects}}.
+\newblock \emph{Statistical science}, 25\penalty0 (1):\penalty0 51--71, 2010.
+\newblock ISSN 0883-4237.
+\newblock \doi{10.1214/10-STS321}.
+
+\bibitem[Imai et~al.(2011)Imai, Keele, Tingley, and
+  Yamamoto]{imaiUnpackingBlackBox2011}
+K.~Imai, L.~Keele, D.~Tingley, and T.~Yamamoto.
+\newblock Unpacking the {{Black Box}} of {{Causality}}: {{Learning}} about
+  {{Causal Mechanisms}} from {{Experimental}} and {{Observational Studies}}.
+\newblock \emph{The American political science review}, 105\penalty0
+  (4):\penalty0 765--789, 2011.
+\newblock ISSN 0003-0554.
+\newblock \doi{10.1017/S0003055411000414}.
+
+\bibitem[Kennedy(2021)]{R-npcausal}
+E.~H. Kennedy.
+\newblock \emph{npal: Nonparametric causal inference methods}, 2021.
+\newblock URL
+  \url{https://github.com/ehkennedy/npcausal/blob/master/npcausal.pdf}.
+\newblock R package version 0.1.0.
+
+\bibitem[Kennedy et~al.(2017)Kennedy, Ma, McHugh, and
+  Small]{kennedyNonparametricMethodsDoubly2017}
+E.~H. Kennedy, Z.~Ma, M.~D. McHugh, and D.~S. Small.
+\newblock Non-parametric methods for doubly robust estimation of continuous
+  treatment effects.
+\newblock \emph{Journal of the Royal Statistical Society. Series B, Statistical
+  methodology}, 79\penalty0 (4):\penalty0 1229--1245, 2017.
+\newblock ISSN 1369-7412.
+\newblock \doi{10.1111/rssb.12212}.
+
+\bibitem[Lau et~al.(2007)Lau, Sigelman, and
+  Rovner]{lauEffectsNegativePolitical2007}
+R.~R. Lau, L.~Sigelman, and I.~B. Rovner.
+\newblock The {{Effects}} of {{Negative Political Campaigns}}: {{A
+  Meta}}-{{Analytic Reassessment}}.
+\newblock 69\penalty0 (4):\penalty0 1176--1209, 2007.
+\newblock ISSN 0022-3816.
+\newblock \doi{10.1111/j.1468-2508.2007.00618.x}.
+
+\bibitem[Naimi et~al.(2014)Naimi, Moodie, Auger, and
+  Kaufman]{naimiConstructingInverseProbability2014}
+A.~I. Naimi, E.~E. Moodie, N.~Auger, and J.~S. Kaufman.
+\newblock Constructing {{Inverse Probability Weights}} for {{Continuous
+  Exposures}}: {{A Comparison}} of {{Methods}}.
+\newblock \emph{Epidemiology (Cambridge, Mass.)}, 25\penalty0 (2):\penalty0
+  292--299, 2014.
+\newblock ISSN 1044-3983.
+\newblock \doi{10.1097/EDE.0000000000000053}.
+
+\bibitem[Robins(1986)]{robinsNewApproachCausal1986}
+J.~M. Robins.
+\newblock A {{New Approach}} to {{Causal Inference}} in {{Mortality Studies}}
+  with a {{Sustained Exposure Period}} \textemdash{} {{Application}} to
+  {{Control}} of the {{Healthy Worker Survivor Effect}}.
+\newblock \emph{Mathematical Modelling}, 7\penalty0 (9):\penalty0 1393--1512,
+  1986.
+\newblock ISSN 0270-0255.
+\newblock \doi{10.1016/0270-0255(86)90088-6}.
+
+\bibitem[Robins(2000)]{robinsMarginalStructuralModels2000a}
+J.~M. Robins.
+\newblock Marginal {{Structural Models}} versus {{Structural Nested Models}} as
+  {{Tools}} for {{Causal Inference}}.
+\newblock In E.~M. Halloran and D.~Berry, editors, \emph{Statistical {{Models}}
+  in {{Epidemiology}}, the {{Environment}}, and {{Clinical Trials}}}, pages
+  95--133. {Springer}, {New York}, 2000.
+
+\bibitem[Robins et~al.(2000)Robins, Hernan, and
+  Brumback]{robinsMarginalStructuralModels2000}
+J.~M. Robins, M.~A. Hernan, and B.~Brumback.
+\newblock Marginal {{Structural Models}} and {{Causal Inference}} in
+  {{Epidemiology}}.
+\newblock \emph{Epidemiology}, 11\penalty0 (5):\penalty0 550--560, 2000.
+\newblock ISSN 1044-3983.
+\newblock \doi{10.1097/00001648-200009000-00011}.
+
+\bibitem[Tomz and Weeks(2013)]{tomzPublicOpinionDemocratic2013a}
+M.~R. Tomz and J.~L.~P. Weeks.
+\newblock Public {{Opinion}} and the {{Democratic Peace}}.
+\newblock 107\penalty0 (4):\penalty0 849--865, 2013.
+\newblock ISSN 0003-0554.
+\newblock \doi{10.1017/S0003055413000488}.
+
+\bibitem[Urban and Niebler(2014)]{urbanDollarsSidewalkShould2014a}
+C.~Urban and S.~Niebler.
+\newblock Dollars on the {{Sidewalk}}: {{Should U}}.{{S}}. {{Presidential
+  Candidates Advertise}} in {{Uncontested States}}?
+\newblock \emph{American Journal of Political Science}, 58\penalty0
+  (2):\penalty0 322--336, 2014.
+\newblock ISSN 0092-5853.
+\newblock \doi{10.1111/ajps.12073}.
+
+\bibitem[{van der Wal} and Geskus(2011)]{vanderwalIpwPackageInverse2011}
+W.~M. {van der Wal} and R.~B. Geskus.
+\newblock Ipw: {{An R Package}} for {{Inverse Probability Weighting}}.
+\newblock \emph{Journal of Statistical Software}, 43\penalty0 (13):\penalty0
+  1--23, 2011.
+\newblock ISSN 1548-7660.
+
+\bibitem[Vansteelandt(2009)]{vansteelandtEstimatingDirectEffects2009}
+S.~Vansteelandt.
+\newblock Estimating {{Direct Effects}} in {{Cohort}} and
+  {{Case}}\textendash{{Control Studies}}.
+\newblock \emph{Epidemiology (Cambridge, Mass.)}, 20\penalty0 (6):\penalty0
+  851--860, 2009.
+\newblock ISSN 1044-3983.
+\newblock \doi{10.1097/EDE.0b013e3181b6f4c9}.
+
+\bibitem[Wang et~al.(2006)Wang, Petersen, Bangsberg, and van~der
+  Laan]{wangDiagnosingBiasInverse2006}
+Y.~Wang, M.~Petersen, D.~Bangsberg, and M.~van~der Laan.
+\newblock Diagnosing {{Bias}} in the {{Inverse Probability}} of {{Treatment
+  Weighted Estimator Resulting}} from {{Violation}} of {{Experimental Treatment
+  Assignment}}.
+\newblock \emph{U.C. Berkeley Division of Biostatistics Working Paper Series},
+  Working Paper 211, Sept. 2006.
+
+\bibitem[Zhou and Wodtke(2020)]{zhouResidualBalancingMethod2020a}
+X.~Zhou and G.~T. Wodtke.
+\newblock Residual {{Balancing}}: {{A Method}} of {{Constructing Weights}} for
+  {{Marginal Structural Models}}.
+\newblock \emph{Political Analysis}, 28\penalty0 (4):\penalty0 487--506, 2020.
+\newblock ISSN 1047-1987.
+\newblock \doi{10.1017/pan.2020.2}.
+
+\end{thebibliography}

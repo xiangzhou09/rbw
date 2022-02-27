@@ -1,3 +1,7 @@
+# rbw 0.3.2
+
+* included vignette in PDF instead of HTML format
+
 # rbw 0.3.1
 
 * renamed the rbwATE() function to rbwPoint()
