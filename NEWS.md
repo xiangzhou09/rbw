@@ -1,7 +1,9 @@
 # rbw 0.3.1
 
 * renamed the rbwATE() function to rbwPoint()
-* added unit tests
+* added more argument checks
+* added automated unit tests
+* added CITATION file
 
 # rbw 0.3.0
 
