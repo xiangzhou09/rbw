@@ -3,21 +3,25 @@
 #' \code{rbwPanel} is a function that produces residual balancing weights (rbw) for
 #' estimating the marginal effects of time-varying treatments. The user supplies
 #' a long format data frame (each row being a unit-period) and a list of
-#' fitted model objects for time-varying confounders. The residuals of each time-varying
-#' covariate \eqn{X_t} are balanced across both current treatment \eqn{D_t} and
-#' the regressors of \eqn{X_t}. In addition, when \code{future > 0},
-#' the residuals are also balanced across future treatments \eqn{D_{t+1},\ldots D_{t + future}}.
+#' fitted model objects for the conditional mean of each post-treatment confounder given
+#' past treatments and past confounders. The residuals of each time-varying confounder
+#' are balanced across both the current treatment \eqn{A_t} and the regressors of the confounder
+#' model. In addition, when \code{future > 0}, the residuals are also balanced across future
+#' treatments \eqn{A_{t+1},\ldots A_{t + future}}.
 #'
-#' @param treatment A symbol or character string for the treatment variable.
+#' @param treatment A symbol or character string for the treatment variable in \code{data}.
 #' @param xmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   time-varying confounders.
-#' @param id A symbol or character string for the unit id variable.
-#' @param time A symbol or character string for the time variable. The time variable should be numeric.
+#' @param id A symbol or character string for the unit id variable in \code{data}.
+#' @param time A symbol or character string for the time variable in \code{data}. The time variable should be numeric.
 #' @param data A data frame containing all variables in the model.
 #' @param future An integer indicating the number of future treatments in the balancing conditions. When
 #'  \code{future > 0}, the residualized time-varying covariates are balanced not only with respect to
-#'  current treatment \eqn{D_t}, but also with respect to future treatments \eqn{D_{t+1},\ldots D_{t + future}}.
+#'  current treatment \eqn{A_t}, but also with respect to future treatments \eqn{A_{t+1},\ldots A_{t + future}}.
 #' @param base_weights (Optional) A vector of base weights (or its name).
+#' @param tol Tolerance parameter used to determine convergence in entropy minimization.
+#'  See documentation for \code{\link{eb2}}.
+#' @param print_level The level of printing. See documentation for \code{\link{eb2}}.
 #' @inheritParams eb2
 #'
 #' @return A list containing the results.
@@ -59,7 +63,7 @@
 #' }
 rbwPanel <- function(treatment, xmodels, id, time, data,
                      base_weights, future = 1L,
-                     max_iter = 200, print_level = 1, tol = 1e-6) {
+                     max_iter = 200, tol = 1e-4, print_level = 1) {
 
     # match call
     cl <- match.call()
@@ -71,25 +75,42 @@ rbwPanel <- function(treatment, xmodels, id, time, data,
     if(missing(time)) stop("'time' must be provided.")
     if(missing(data)) stop("'data' must be provided.")
 
-    # check xmodels
-    if(!is.list(xmodels)) stop("xmodels must be a list.")
+    #  check and quote treatment, id, and time
+    if(!(typeof(enexpr(treatment)) %in% c("symbol", "character"))){
+      stop("'treatment' must be a symbol or character string")
+    }
+    if(!(typeof(enexpr(id)) %in% c("symbol", "character"))){
+      stop("'id' must be a symbol or character string")
+    }
+    if(!(typeof(enexpr(time)) %in% c("symbol", "character"))){
+      stop("'time' must be a symbol or character string")
+    }
+    treatment <- ensym(treatment)
+    id_sym <- ensym(id)
+    time_sym <- ensym(time)
+
+    # check if all elements of xmodels inherit the lm class
+    if(!is.list(xmodels)) stop("'xmodels' must be a list.")
     if(!all(unlist(lapply(xmodels, inherits, "lm")))){
-      stop("Each element of xmodels must inherit the class 'lm'")
+      stop("Each element of 'xmodels' must inherit the class 'lm'")
     }
     xnames <- vapply(xmodels, function(mod) names(model.frame(mod))[[1]], character(1L))
 
-    # treatment symbol
-    asymbol <- ensym(treatment)
-
-    # check data
-    if(!is.data.frame(data)) stop("'data' must be a data.frame.")
+    # check if data is a data.frame
+    if(!is.data.frame(data) || nrow(data) < 2) stop("'data' must be a data frame with at least 2 rows.")
     n <- nrow(data)
 
+    # check if treatment, id, and time are all in data
+    treatment_name <- as_string(treatment)
+    id_name <- as_string(id_sym)
+    time_name <- as_string(time_sym)
+    if(!(treatment_name %in% names(data))) stop(paste0(treatment_name, " is not in 'data'"))
+    if(!(id_name %in% names(data))) stop(paste0(id_name, " is not in 'data'"))
+    if(!(time_name %in% names(data))) stop(paste0(time_name, " is not in 'data'"))
+
     # extract id and time
-    idsymbol <- ensym(id)
-    timesymbol <- ensym(time)
-    id <- eval_tidy(idsymbol, data)
-    time <- eval_tidy(timesymbol, data)
+    id <- eval_tidy(id_sym, data)
+    time <- eval_tidy(time_sym, data)
     if(length(id) != n) stop("'id' must have the same length as 'data'.")
     if(length(time) != n) stop("'time' must have the same length as 'data'.")
 
@@ -104,10 +125,13 @@ rbwPanel <- function(treatment, xmodels, id, time, data,
       bweights <- rep(1, sum(unique_pos))
     } else{
       bweights <- eval_tidy(enquo(base_weights), data)
-      if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
+      if(length(bweights) != n || !is.double(bweights)){
+        stop("'base_weights' must be numeric and have the same length as 'data'.")
+      }
       bweights <- bweights[unique_pos]
     }
 
+    # check if future is numeric
     if(!is.numeric(future)) stop("'future' must be a nonnegative integer.")
 
     if(future > 0){
@@ -116,25 +140,25 @@ rbwPanel <- function(treatment, xmodels, id, time, data,
       nfuture <- min(future, nT - 1)
 
       # symbols for future treatments
-      asymbols <- c(asymbol, syms(lapply(1:nfuture, function(t) paste0(as_string(asymbol), "_f", t))))
+      treatments <- c(treatment, syms(lapply(1:nfuture, function(t) paste0(as_string(treatment), "_f", t))))
 
       # create future treatments in data
       data <-  data %>%
         mutate(uniqueID = seq_len(n)) %>%
-        arrange(!!idsymbol, !!timesymbol) %>%
-        group_by(!!idsymbol)
+        arrange(!!id_sym, !!time_sym) %>%
+        group_by(!!id_sym)
       for (t in seq(1, nfuture)){
         data <- data %>%
-          mutate(!!asymbols[[t+1]]:= dplyr::lead(!!asymbol, t))
+          mutate(!!treatments[[t+1]]:= dplyr::lead(!!treatment, t))
       }
       data <- data %>%
         ungroup() %>%
         arrange(uniqueID)
 
-      aform <- Reduce(function(x, y) expr(!!x + !!y), asymbols)
+      aform <- Reduce(function(x, y) expr(!!x + !!y), treatments)
 
     } else{
-      aform <- asymbol
+      aform <- treatment
     }
 
     # construct model matrix for treatment (without intercept)

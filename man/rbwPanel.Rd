@@ -13,19 +13,19 @@ rbwPanel(
   base_weights,
   future = 1L,
   max_iter = 200,
-  print_level = 1,
-  tol = 1e-06
+  tol = 1e-04,
+  print_level = 1
 )
 }
 \arguments{
-\item{treatment}{A symbol or character string for the treatment variable.}
+\item{treatment}{A symbol or character string for the treatment variable in \code{data}.}
 
 \item{xmodels}{A list of fitted \code{lm} or \code{glm} objects for
 time-varying confounders.}
 
-\item{id}{A symbol or character string for the unit id variable.}
+\item{id}{A symbol or character string for the unit id variable in \code{data}.}
 
-\item{time}{A symbol or character string for the time variable. The time variable should be numeric.}
+\item{time}{A symbol or character string for the time variable in \code{data}. The time variable should be numeric.}
 
 \item{data}{A data frame containing all variables in the model.}
 
@@ -33,19 +33,14 @@ time-varying confounders.}
 
 \item{future}{An integer indicating the number of future treatments in the balancing conditions. When
 \code{future > 0}, the residualized time-varying covariates are balanced not only with respect to
-current treatment \eqn{D_t}, but also with respect to future treatments \eqn{D_{t+1},\ldots D_{t + future}}.}
+current treatment \eqn{A_t}, but also with respect to future treatments \eqn{A_{t+1},\ldots A_{t + future}}.}
 
-\item{max_iter}{Maximum number of iterations for Newton's method.}
+\item{max_iter}{Maximum number of iterations for Newton's method in entropy minimization.}
 
-\item{print_level}{The level of printing: \describe{
-\item{1}{normal: print whether the algorithm converges or not}
-\item{2}{detailed: print also the maximum absolute value of the deviation between the moments
- of the reweighted data and the target moments in each iteration}
-\item{3}{very detailed: print also the step length of the line searcher in iterations where
- a full Newton step is excessive.}
-}}
+\item{tol}{Tolerance parameter used to determine convergence in entropy minimization.
+See documentation for \code{\link{eb2}}.}
 
-\item{tol}{Tolerance parameter used to determine convergence.}
+\item{print_level}{The level of printing. See documentation for \code{\link{eb2}}.}
 }
 \value{
 A list containing the results.
@@ -58,10 +53,11 @@ A list containing the results.
 \code{rbwPanel} is a function that produces residual balancing weights (rbw) for
 estimating the marginal effects of time-varying treatments. The user supplies
 a long format data frame (each row being a unit-period) and a list of
-fitted model objects for time-varying confounders. The residuals of each time-varying
-covariate \eqn{X_t} are balanced across both current treatment \eqn{D_t} and
-the regressors of \eqn{X_t}. In addition, when \code{future > 0},
-the residuals are also balanced across future treatments \eqn{D_{t+1},\ldots D_{t + future}}.
+fitted model objects for the conditional mean of each post-treatment confounder given
+past treatments and past confounders. The residuals of each time-varying confounder
+are balanced across both the current treatment \eqn{A_t} and the regressors of the confounder
+model. In addition, when \code{future > 0}, the residuals are also balanced across future
+treatments \eqn{A_{t+1},\ldots A_{t + future}}.
 }
 \examples{
 # models for time-varying confounders

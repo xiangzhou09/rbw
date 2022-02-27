@@ -8,16 +8,21 @@
 #' Newton step is excessive, an exact line search is used to find the best step
 #' size.
 #'
-#' @param C A constraint matrix.
-#' @param M A vector of moment conditions to be met in the reweighted sample.
+#' @param C A constraint matrix where each column corresponds to a balancing constraint.
+#' @param M A vector of moment conditions to be met in the reweighted sample. Specifically,
+#'  in the reweighted sample, we should have \eqn{C'W=M}, where \eqn{W} is a column vector representing
+#'  the new weights. When called internally, it is a vector of zeros with length equal to the number of
+#'  columns in \code{C}.
 #' @param Q A vector of base weights.
 #' @param Z A vector of Lagrange multipliers to be initialized.
-#' @param max_iter Maximum number of iterations for Newton's method.
-#' @param tol Tolerance parameter used to determine convergence.
+#' @param max_iter Maximum number of iterations for Newton's method in entropy minimization.
+#' @param tol Tolerance parameter used to determine convergence. Specifically, convergence is achieved if
+#'  \code{tol} is greater than the maximum absolute value of the deviations between the moments of the
+#'  reweighted data and the target moments (i.e., \code{M}).
 #' @param print_level The level of printing: \describe{
-#'  \item{1}{normal: print whether the algorithm converges or not}
-#'  \item{2}{detailed: print also the maximum absolute value of the deviation between the moments
-#'   of the reweighted data and the target moments in each iteration}
+#'  \item{1}{normal: print whether the algorithm converges or not.}
+#'  \item{2}{detailed: print also the maximum absolute value of the deviations between the moments
+#'   of the reweighted data and the target moments in each iteration.}
 #'  \item{3}{very detailed: print also the step length of the line searcher in iterations where
 #'   a full Newton step is excessive.}
 #'  }
@@ -31,7 +36,7 @@
 #' @import stats
 #' @export
 
-eb2 <- function(C, M, Q, Z = rep(0, ncol(C)), max_iter = 200, tol = 1e-4, print_level = 2) {
+eb2 <- function(C, M, Q, Z = rep(0, ncol(C)), max_iter = 200, tol = 1e-4, print_level = 1) {
 
   converged <- FALSE
 

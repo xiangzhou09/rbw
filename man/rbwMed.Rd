@@ -13,14 +13,14 @@ rbwMed(
   interact = FALSE,
   base_weights,
   max_iter = 200,
-  print_level = 1,
-  tol = 1e-06
+  tol = 1e-04,
+  print_level = 1
 )
 }
 \arguments{
-\item{treatment}{A symbol or character string for the treatment variable.}
+\item{treatment}{A symbol or character string for the treatment variable in \code{data}.}
 
-\item{mediator}{A symbol or character string for the mediator variable.}
+\item{mediator}{A symbol or character string for the mediator variable in \code{data}.}
 
 \item{zmodels}{A list of fitted \code{lm} or \code{glm} objects for
 post-treatment confounders of the mediator-outcome relationship. If there's no
@@ -36,30 +36,27 @@ should be balanced against the treatment-mediator interaction term(s).}
 
 \item{base_weights}{(Optional) A vector of base weights (or its name).}
 
-\item{max_iter}{Maximum number of iterations for Newton's method.}
+\item{max_iter}{Maximum number of iterations for Newton's method in entropy minimization.}
 
-\item{print_level}{The level of printing: \describe{
-\item{1}{normal: print whether the algorithm converges or not}
-\item{2}{detailed: print also the maximum absolute value of the deviation between the moments
- of the reweighted data and the target moments in each iteration}
-\item{3}{very detailed: print also the step length of the line searcher in iterations where
- a full Newton step is excessive.}
-}}
+\item{tol}{Tolerance parameter used to determine convergence in entropy minimization.
+See documentation for \code{\link{eb2}}.}
 
-\item{tol}{Tolerance parameter used to determine convergence.}
+\item{print_level}{The level of printing. See documentation for \code{\link{eb2}}.}
 }
 \value{
 A list containing the results.
  \item{weights}{A vector of residual balancing weights.}
  \item{constraints}{A matrix of (linearly independent) residual balancing constraints}
- \item{eb_out}{Results from calling \code{\link{eb2}} function}
+ \item{eb_out}{Results from calling the \code{\link{eb2}} function}
  \item{call}{The matched call.}
 }
 \description{
 \code{rbwMed} is a function that produces residual balancing weights for estimating
-controlled direct/mediator effects in causal mediation analysis. The weights can be used to
-fit marginal structural models for the joint effects of the treatment and a mediator on an
-outcome of interest.
+controlled direct/mediator effects in causal mediation analysis. The user supplies
+a (optional) set of baseline confounders and a list of model objects for the conditional
+mean of each post-treatment confounder given the treatment and baseline confounders.
+The weights can be used to fit marginal structural models for the joint effects of the
+treatment and a mediator on an outcome of interest.
 }
 \examples{
 # models for post-treatment confounders

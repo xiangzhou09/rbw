@@ -10,12 +10,12 @@ rbwPoint(
   baseline_x,
   base_weights,
   max_iter = 200,
-  print_level = 1,
-  tol = 1e-06
+  tol = 1e-04,
+  print_level = 1
 )
 }
 \arguments{
-\item{treatment}{A symbol or character string for the treatment variable.}
+\item{treatment}{A symbol or character string for the treatment variable in \code{data}.}
 
 \item{data}{A data frame containing all variables in the model.}
 
@@ -24,28 +24,25 @@ vector of the names of these variables.}
 
 \item{base_weights}{(Optional) A vector of base weights (or its name).}
 
-\item{max_iter}{Maximum number of iterations for Newton's method.}
+\item{max_iter}{Maximum number of iterations for Newton's method in entropy minimization.}
 
-\item{print_level}{The level of printing: \describe{
-\item{1}{normal: print whether the algorithm converges or not}
-\item{2}{detailed: print also the maximum absolute value of the deviation between the moments
- of the reweighted data and the target moments in each iteration}
-\item{3}{very detailed: print also the step length of the line searcher in iterations where
- a full Newton step is excessive.}
-}}
+\item{tol}{Tolerance parameter used to determine convergence in entropy minimization.
+See documentation for \code{\link{eb2}}.}
 
-\item{tol}{Tolerance parameter used to determine convergence.}
+\item{print_level}{The level of printing. See documentation for \code{\link{eb2}}.}
 }
 \value{
 A list containing the results.
  \item{weights}{A vector of residual balancing weights.}
  \item{constraints}{A matrix of (linearly independent) residual balancing constraints}
- \item{eb_out}{Results from calling \code{\link{eb2}} function}
+ \item{eb_out}{Results from calling the \code{\link{eb2}} function}
  \item{call}{The matched call.}
 }
 \description{
-\code{rbwPoint} is a function that produces residual balancing weights in a point treatment setting.
-The weights can be used to fit marginal structural models to estimate the average treatment effect (ATE).
+\code{rbwPoint} is a function that produces residual balancing weights in a point treatment setting. It takes
+a set of baseline confounders and computes the residuals for each confounder by centering it around
+its sample mean. The weights can be used to fit marginal structural models to estimate the average treatment
+effect (ATE).
 }
 \examples{
 # residual balancing weights

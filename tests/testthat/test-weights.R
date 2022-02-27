@@ -5,7 +5,7 @@ test_that("base weights are the same length as data", {
   expect_error(rbwPoint(treatment = treat,
                       baseline_x = c(log_TotalPop, PercentOver65, log_Inc,PercentHispanic, PercentBlack, density,per_collegegrads, CanCommute),
                       data = advertisement, base_weights = bweights),
-               "'base_weights' must have the same length as 'data'")
+               "'base_weights' must be numeric and have the same length as 'data'.")
   # Mediation Analysis
   m1 <- lm(threatc ~ ally + trade + h1 + i1 + p1 + e1 + r1 +
              male + white + age + ed4 + democ, data = peace)
@@ -18,7 +18,7 @@ test_that("base weights are the same length as data", {
                       zmodels = zmodels, interact = TRUE,
                       baseline_x = c(ally, trade, h1, i1, p1, e1, r1, male, white, age, ed4),
                       data = peace, base_weights = bweights),
-               "'base_weights' must have the same length as 'data'")
+               "'base_weights' must be numeric and have the same length as 'data'.")
   # Time-Varying Treatment
   m1 <- lm(dem.polls ~ (d.gone.neg.l1 + dem.polls.l1 + undother.l1) * factor(week),
            data = campaign_long)
@@ -27,6 +27,6 @@ test_that("base weights are the same length as data", {
   xmodels <- list(m1, m2)
   expect_error(rbwPanel(treatment = d.gone.neg, xmodels = xmodels, id = id,
                         time = week, data = campaign_long, base_weights = bweights),
-               "'base_weights' must have the same length as 'data'")
+               "'base_weights' must be numeric and have the same length as 'data'.")
 })
 

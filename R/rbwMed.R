@@ -1,12 +1,14 @@
 #' Residual Balancing Weights for Causal Mediation Analysis
 #'
 #' \code{rbwMed} is a function that produces residual balancing weights for estimating
-#' controlled direct/mediator effects in causal mediation analysis. The weights can be used to
-#' fit marginal structural models for the joint effects of the treatment and a mediator on an
-#' outcome of interest.
+#' controlled direct/mediator effects in causal mediation analysis. The user supplies
+#' a (optional) set of baseline confounders and a list of model objects for the conditional
+#' mean of each post-treatment confounder given the treatment and baseline confounders.
+#' The weights can be used to fit marginal structural models for the joint effects of the
+#' treatment and a mediator on an outcome of interest.
 #'
-#' @param treatment A symbol or character string for the treatment variable.
-#' @param mediator A symbol or character string for the mediator variable.
+#' @param treatment A symbol or character string for the treatment variable in \code{data}.
+#' @param mediator A symbol or character string for the mediator variable in \code{data}.
 #' @param zmodels A list of fitted \code{lm} or \code{glm} objects for
 #'   post-treatment confounders of the mediator-outcome relationship. If there's no
 #'   post-treatment confounder, set it to be \code{NULL}.
@@ -14,13 +16,13 @@
 #'  a character vector of the names of these variables.
 #' @param interact A logical variable indicating whether baseline and post-treatment covariates
 #'   should be balanced against the treatment-mediator interaction term(s).
-#' @inheritParams eb2
 #' @inheritParams rbwPanel
+#' @inheritParams eb2
 #'
 #' @return A list containing the results.
 #'  \item{weights}{A vector of residual balancing weights.}
 #'  \item{constraints}{A matrix of (linearly independent) residual balancing constraints}
-#'  \item{eb_out}{Results from calling \code{\link{eb2}} function}
+#'  \item{eb_out}{Results from calling the \code{\link{eb2}} function}
 #'  \item{call}{The matched call.}
 #' @export
 #'
@@ -52,16 +54,48 @@
 #' }
 rbwMed <- function(treatment, mediator, zmodels, data,
                    baseline_x, interact = FALSE, base_weights,
-                   max_iter = 200, print_level = 1, tol = 1e-6) {
+                   max_iter = 200, tol = 1e-4, print_level = 1) {
 
   # match call
   cl <- match.call()
 
-  # check treatment and mediator
+  # check and quote treatment and mediator
   if(missing(treatment)) stop("'treatment' must be provided.")
   if(missing(mediator)) stop("'mediator' must be provided.")
+  if(!(typeof(enexpr(treatment)) %in% c("symbol", "character"))){
+    stop("'treatment' must be a symbol or character string")
+  }
+  if(!(typeof(enexpr(mediator)) %in% c("symbol", "character"))){
+    stop("'mediator' must be a symbol or character string")
+  }
   treatment <- ensym(treatment)
   mediator <- ensym(mediator)
+
+  # check data
+  if(missing(data)) stop("'data' must be provided.")
+  if(!is.data.frame(data) || nrow(data) < 2) stop("'data' must be a data frame with at least 2 rows.")
+  n <- nrow(data)
+
+  # check if treatment and mediator are both in data
+  treatment_name <- as_string(treatment)
+  mediator_name <- as_string(mediator)
+  if(!(treatment_name %in% names(data))) stop(paste0(treatment_name, " is not in 'data'"))
+  if(!(mediator_name %in% names(data))) stop(paste0(mediator_name, " is not in 'data'"))
+
+  # check interact
+  if(!is.logical(interact) || length(interact) > 1 || is.na(interact)){
+    stop("'interact' must be a logical scalar")
+  }
+
+  # check base weights
+  if(missing(base_weights)){
+    bweights <- rep(1, n)
+  } else{
+    bweights <- eval_tidy(enquo(base_weights), data)
+    if(length(bweights) != n || !is.double(bweights)){
+      stop("'base_weights' must be numeric and have the same length as 'data'.")
+      }
+  }
 
   # check zmodels
   if(missing(zmodels)) stop("'zmodels' must be provided.")
@@ -73,25 +107,15 @@ rbwMed <- function(treatment, mediator, zmodels, data,
   }
   znames <- vapply(zmodels, function(mod) names(model.frame(mod))[[1]], character(1L))
 
-  # check data
-  if(missing(data)) stop("'data' must be provided.")
-  if(!is.data.frame(data)) stop("'data' must be a data frame.")
-  n <- nrow(data)
-
-  # check base weights
-  if(missing(base_weights)){
-    bweights <- rep(1, n)
-  } else{
-    bweights <- eval_tidy(enquo(base_weights), data)
-    if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
-  }
-
   # construct xmodels for baseline confounders
   if(!missing(baseline_x)) {
     baseline_x <- enquo(baseline_x)
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
     vars <- eval_tidy(baseline_x, nl)
+    if(!(is.character(vars) || is.integer(vars))){
+      stop("'baseline_x' should either be a character vector or an expression of baseline confounders in 'data'")
+    }
     xnames <- if(is.character(vars)) vars else names(data)[vars]
     xform <- paste("~", paste(xnames, collapse = "+"))
     x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]

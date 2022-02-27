@@ -1,9 +1,11 @@
 #' Residual Balancing Weights for Estimating the Average Treatment Effect (ATE) in a Point Treatment Setting
 #'
-#' \code{rbwPoint} is a function that produces residual balancing weights in a point treatment setting.
-#' The weights can be used to fit marginal structural models to estimate the average treatment effect (ATE).
+#' \code{rbwPoint} is a function that produces residual balancing weights in a point treatment setting. It takes
+#' a set of baseline confounders and computes the residuals for each confounder by centering it around
+#' its sample mean. The weights can be used to fit marginal structural models to estimate the average treatment
+#' effect (ATE).
 #'
-#' @param treatment A symbol or character string for the treatment variable.
+#' @param treatment A symbol or character string for the treatment variable in \code{data}.
 #' @param baseline_x An expression for a set of baseline confounders stored in \code{data} or a character
 #'  vector of the names of these variables.
 #' @inheritParams rbwMed
@@ -11,7 +13,7 @@
 #' @return A list containing the results.
 #'  \item{weights}{A vector of residual balancing weights.}
 #'  \item{constraints}{A matrix of (linearly independent) residual balancing constraints}
-#'  \item{eb_out}{Results from calling \code{\link{eb2}} function}
+#'  \item{eb_out}{Results from calling the \code{\link{eb2}} function}
 #'  \item{call}{The matched call.}
 #' @export
 #'
@@ -34,26 +36,35 @@
 #' }
 #'
 rbwPoint <- function(treatment, data, baseline_x, base_weights,
-                   max_iter = 200, print_level = 1, tol = 1e-6) {
+                   max_iter = 200, tol = 1e-4, print_level = 1) {
 
   # match call
   cl <- match.call()
 
-  # check treatment
+  # check and quote treatment
   if(missing(treatment)) stop("'treatment' must be provided.")
+  if(!(typeof(enexpr(treatment)) %in% c("symbol", "character"))){
+    stop("'treatment' must be a symbol or character string")
+  }
   treatment <- ensym(treatment)
 
   # check data
   if(missing(data)) stop("'data' must be provided.")
-  if(!is.data.frame(data)) stop("'data' must be a data frame.")
+  if(!is.data.frame(data) || nrow(data) < 2) stop("'data' must be a data frame with at least 2 rows.")
   n <- nrow(data)
+
+  # check if treatment is in data
+  treatment_name <- as_string(treatment)
+  if(!(treatment_name %in% names(data))) stop(paste0(treatment_name, " is not in 'data'"))
 
   # check base weights
   if(missing(base_weights)){
     bweights <- rep(1, n)
   } else{
     bweights <- eval_tidy(enquo(base_weights), data)
-    if(length(bweights) != n) stop("'base_weights' must have the same length as 'data'.")
+    if(length(bweights) != n || !is.double(bweights)){
+      stop("'base_weights' must be numeric and have the same length as 'data'.")
+    }
   }
 
   # construct xmodels for baseline confounders
@@ -62,6 +73,9 @@ rbwPoint <- function(treatment, data, baseline_x, base_weights,
     nl <- as.list(seq_along(data))
     names(nl) <- names(data)
     vars <- eval_tidy(baseline_x, nl)
+    if(!(is.character(vars) || is.integer(vars))){
+      stop("'baseline_x' should either be a character vector or an expression of baseline confounders in 'data'")
+    }
     xnames <- if(is.character(vars)) vars else names(data)[vars]
     xform <- paste("~", paste(xnames, collapse = "+"))
     x <- model.matrix(eval_tidy(parse_expr(xform)), data)[, -1, drop = FALSE]
