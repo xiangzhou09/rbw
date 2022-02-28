@@ -1,10 +1,6 @@
 Package: rbw
 Type: Package
-<<<<<<< HEAD
 Date: 2022-02-28
-=======
-Date: 2022-02-27
->>>>>>> 8ab50d7c33f4eef26cd79590a4d8198344d7b4e6
 Title: Residual Balancing Weights for Marginal Structural Models
 Version: 0.3.2
 Authors@R: c(
