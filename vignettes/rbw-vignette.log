@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.28)  28 FEB 2022 23:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.28)  1 MAR 2022 08:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -6,12 +6,9 @@ entering extended mode
 (./rbw-vignette.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24>
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.
-cls
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.c
-lo
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -26,16 +23,14 @@ File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pdfp
-ages.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pdfpages.
+sty
 Package: pdfpages 2022/01/29 v0.5u Insert pages of external PDF documents (AM)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.s
-ty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.st
-y
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count193
 \calc@Bcount=\count194
@@ -48,29 +43,28 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count195
 \calc@Cskip=\skip51
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/eso-pic/eso-p
-ic.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/eso-pic/eso-pic.st
+y
 Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
 \ESO@tempdima=\dimen141
 \ESO@tempdimb=\dimen142
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyv
-al.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.st
+y
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor
-.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/
-color.cfg
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color
+.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/
-pdftex.def
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdfte
+x.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 )
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
@@ -83,20 +77,19 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 ))
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/grap
-hicx.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.
+sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/grap
-hics.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.
+sty
 Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig
-.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/
-graphics.cfg
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graph
+ics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
@@ -108,8 +101,8 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 \AM@pageheight=\dimen146
 \AM@fboxrule=\dimen147
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pppd
-ftex.def
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdfpages/pppdftex.
+def
 File: pppdftex.def 2022/01/29 v0.5u Pdfpages driver for pdfTeX (AM)
 )
 \pdfpages@includegraphics@status=\count196
@@ -119,11 +112,11 @@ File: pppdftex.def 2022/01/29 v0.5u Pdfpages driver for pdfTeX (AM)
 \AM@toc@title=\toks18
 \c@AM@survey=\count198
 \AM@templatesizebox=\box51
-) (c:/Program Files/R/R-3.6.3/share/texmf/tex/latex/Sweave.sty
+) (c:/Program Files/R/R-3.6.2/share/texmf/tex/latex/Sweave.sty
 Package: Sweave 
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fanc
-yvrb.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.
+sty
 Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
 \FV@CodeLineNo=\count199
 \FV@InFile=\read2
@@ -132,29 +125,23 @@ Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
 \FV@StepNumber=\count267
 \FV@OutFile=\write3
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp
-.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-)
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.
-sty
+) (c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-)
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ae/ae.sty
+) (c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ae/ae.sty
 Package: ae 2001/02/12 1.3 Almost European Computer Modern
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.
-sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 )))
 LaTeX Font Info:    Trying to load font information for T1+aer on input line 6.
 
-
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ae/t1aer.fd
+ (c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3b
-ackend-pdftex.def
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
+d-pdftex.def
 File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count268
 \l__pdf_internal_box=\box53
@@ -176,41 +163,54 @@ LaTeX Font Info:    ... okay on input line 6.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/
-epstopdf-base.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/context/base/mkii/supp-p
+df.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count269
+\scratchdimen=\dimen148
+\scratchbox=\box54
+\nofMPsegments=\count270
+\nofMParguments=\count271
+\everyMPshowfont=\toks19
+\MPscratchCnt=\count272
+\MPscratchDim=\dimen149
+\MPnumerator=\count273
+\makeMPintoPDFobject=\count274
+\everyMPtoPDFconversion=\toks20
+)
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
+pdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/i
-nfwarerr.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwar
+err.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grfext/grfext
-.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/grfext/grfext.sty
 Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekey
-s/kvdefinekeys.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvd
+efinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 ))
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvo
-ptions.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoption
+s.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltx
-cmds.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.
+sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
 )
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/k
-vsetkeys.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetk
+eys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 ))
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/
-pdftexcmds.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdfte
+xcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex
-.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 )
 Package pdftexcmds Info: \pdf@primitive is available.
@@ -224,17 +224,17 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 504.
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/e
-pstopdf-sys.cfg
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstop
+df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdf
-lscape.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscap
+e.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
 
-(c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lsca
-pe.sty
+(c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.st
+y
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
@@ -271,8 +271,8 @@ Package pdftex.def Info: RJwrapper.pdf , page1 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [1
 
- <./RJwrapper.pdf{c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-var/fonts/m
-ap/pdftex/updmap/pdftex.map}>]
+ <./RJwrapper.pdf{c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pd
+ftex/updmap/pdftex.map}>]
 <RJwrapper.pdf, id=27, page=2, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 2>
@@ -286,8 +286,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 2>
 Package pdftex.def Info: RJwrapper.pdf , page2 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
-
-[2 <./RJwrapper.pdf>]
+ [2 <./RJwrapper.pdf>]
 <RJwrapper.pdf, id=51, page=3, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 3>
@@ -343,7 +342,8 @@ File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 6>
 Package pdftex.def Info: RJwrapper.pdf , page6 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [6 <./RJwrapper.pdf>]
+
+[6 <./RJwrapper.pdf>]
 <RJwrapper.pdf, id=97, page=7, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 7>
@@ -385,8 +385,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 9>
 Package pdftex.def Info: RJwrapper.pdf , page9 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
-
-[9 <./RJwrapper.pdf>]
+ [9 <./RJwrapper.pdf>]
 <RJwrapper.pdf, id=110, page=10, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 10>
@@ -442,7 +441,8 @@ File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 13>
 Package pdftex.def Info: RJwrapper.pdf , page13 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [13 <./RJwrapper.pdf>]
+
+[13 <./RJwrapper.pdf>]
 <RJwrapper.pdf, id=127, page=14, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 14>
@@ -512,33 +512,31 @@ File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 18>
 Package pdftex.def Info: RJwrapper.pdf , page18 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [18 <./RJwrapper.pdf>]
-(./rbw-vignette.aux) ) 
+ [18 <./RJwrapper.pdf>] (./rbw-vignette.aux) ) 
 Here is how much of TeX's memory you used:
- 3734 strings out of 480236
- 65037 string characters out of 5893788
- 343548 words of memory out of 5000000
- 21645 multiletter control sequences out of 15000+600000
+ 4033 strings out of 480211
+ 68595 string characters out of 5893046
+ 347535 words of memory out of 5000000
+ 21954 multiletter control sequences out of 15000+600000
  471517 words of font info for 30 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,17n,76p,229b,436s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/f
-onts/type1/public/inconsolata/Inconsolata-zi4r.pfb><c:/Users/Xiang Zhou/AppData
-/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/Users
-/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi10.pfb><c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr10.pfb><c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/Xiang Zhou/AppData/Roa
-ming/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb><c:/Users/Xiang 
-Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb><
-c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/mathp
-azo/fplmri.pfb><c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb><c:/Users/Xiang Zhou/AppData/Roaming/Tin
-yTeX/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb><c:/Users/Xiang Zhou/AppDat
-a/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/Users/Xia
-ng Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-<c:/Users/Xiang Zhou/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatin
-o/uplri8a.pfb>
+<c:/Users/Xiang/AppData/Roaming/T
+inyTeX/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><c:/Users
+/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10
+.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi10.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/Xiang/AppData/Roaming/T
+inyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb><c:/Users/Xiang/AppDat
+a/Roaming/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb><c:/Users/Xi
+ang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><
+c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/s
+ymbols/msbm10.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
+1/urw/palatino/uplb8a.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fo
+nts/type1/urw/palatino/uplbi8a.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texm
+f-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/Users/Xiang/AppData/Roaming/Tiny
+TeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
 Output written on rbw-vignette.pdf (18 pages, 222421 bytes).
 PDF statistics:
  164 PDF objects out of 1000 (max. 8388607)
