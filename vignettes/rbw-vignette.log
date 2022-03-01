@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.28)  1 MAR 2022 08:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.1)  1 MAR 2022 09:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -273,7 +273,7 @@ Package pdftex.def Info: RJwrapper.pdf , page1 used on input line 8.
 
  <./RJwrapper.pdf{c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pd
 ftex/updmap/pdftex.map}>]
-<RJwrapper.pdf, id=27, page=2, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=30, page=2, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 2>
 Package pdftex.def Info: RJwrapper.pdf , page2 used on input line 8.
@@ -287,7 +287,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page2 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [2 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=51, page=3, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=58, page=3, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 3>
 Package pdftex.def Info: RJwrapper.pdf , page3 used on input line 8.
@@ -301,7 +301,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page3 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [3 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=75, page=4, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=86, page=4, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 4>
 Package pdftex.def Info: RJwrapper.pdf , page4 used on input line 8.
@@ -315,7 +315,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page4 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [4 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=84, page=5, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=96, page=5, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 5>
 Package pdftex.def Info: RJwrapper.pdf , page5 used on input line 8.
@@ -329,7 +329,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page5 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [5 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=88, page=6, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=100, page=6, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 6>
 Package pdftex.def Info: RJwrapper.pdf , page6 used on input line 8.
@@ -344,7 +344,7 @@ Package pdftex.def Info: RJwrapper.pdf , page6 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
 
 [6 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=97, page=7, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=110, page=7, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 7>
 Package pdftex.def Info: RJwrapper.pdf , page7 used on input line 8.
@@ -358,7 +358,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page7 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [7 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=102, page=8, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=115, page=8, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 8>
 Package pdftex.def Info: RJwrapper.pdf , page8 used on input line 8.
@@ -372,7 +372,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page8 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [8 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=106, page=9, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=119, page=9, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 9>
 Package pdftex.def Info: RJwrapper.pdf , page9 used on input line 8.
@@ -386,7 +386,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page9 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [9 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=110, page=10, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=123, page=10, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 10>
 Package pdftex.def Info: RJwrapper.pdf , page10 used on input line 8.
@@ -400,7 +400,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page10 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [10 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=114, page=11, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=127, page=11, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 11>
 Package pdftex.def Info: RJwrapper.pdf , page11 used on input line 8.
@@ -414,7 +414,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page11 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [11 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=118, page=12, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=131, page=12, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 12>
 Package pdftex.def Info: RJwrapper.pdf , page12 used on input line 8.
@@ -428,7 +428,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page12 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [12 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=122, page=13, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=135, page=13, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 13>
 Package pdftex.def Info: RJwrapper.pdf , page13 used on input line 8.
@@ -443,7 +443,7 @@ Package pdftex.def Info: RJwrapper.pdf , page13 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
 
 [13 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=127, page=14, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=140, page=14, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 14>
 Package pdftex.def Info: RJwrapper.pdf , page14 used on input line 8.
@@ -457,7 +457,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page14 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [14 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=131, page=15, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=149, page=15, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 15>
 Package pdftex.def Info: RJwrapper.pdf , page15 used on input line 8.
@@ -471,7 +471,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page15 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [15 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=135, page=16, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=153, page=16, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 16>
 Package pdftex.def Info: RJwrapper.pdf , page16 used on input line 8.
@@ -485,7 +485,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page16 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [16 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=139, page=17, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=157, page=17, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 17>
 Package pdftex.def Info: RJwrapper.pdf , page17 used on input line 8.
@@ -499,7 +499,7 @@ File: RJwrapper.pdf Graphic file (type pdf)
 Package pdftex.def Info: RJwrapper.pdf , page17 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [17 <./RJwrapper.pdf>]
-<RJwrapper.pdf, id=143, page=18, 597.50829pt x 845.0471pt>
+<RJwrapper.pdf, id=161, page=18, 597.50829pt x 845.0471pt>
 File: RJwrapper.pdf Graphic file (type pdf)
 <use RJwrapper.pdf, page 18>
 Package pdftex.def Info: RJwrapper.pdf , page18 used on input line 8.
@@ -514,10 +514,10 @@ Package pdftex.def Info: RJwrapper.pdf , page18 used on input line 8.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [18 <./RJwrapper.pdf>] (./rbw-vignette.aux) ) 
 Here is how much of TeX's memory you used:
- 4033 strings out of 480211
- 68595 string characters out of 5893046
- 347535 words of memory out of 5000000
- 21954 multiletter control sequences out of 15000+600000
+ 4033 strings out of 480236
+ 68595 string characters out of 5894215
+ 347377 words of memory out of 5000000
+ 21941 multiletter control sequences out of 15000+600000
  471517 words of font info for 30 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  70i,17n,76p,229b,436s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -537,10 +537,10 @@ ymbols/msbm10.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
 nts/type1/urw/palatino/uplbi8a.pfb><c:/Users/Xiang/AppData/Roaming/TinyTeX/texm
 f-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/Users/Xiang/AppData/Roaming/Tiny
 TeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on rbw-vignette.pdf (18 pages, 222421 bytes).
+Output written on rbw-vignette.pdf (18 pages, 227149 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
+ 182 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  110 words of extra memory for PDF output out of 10000 (max. 10000000)
 

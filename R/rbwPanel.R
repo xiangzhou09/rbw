@@ -154,9 +154,7 @@ rbwPanel <- function(treatment, xmodels, id, time, data,
       data <- data %>%
         ungroup() %>%
         arrange(uniqueID)
-
       aform <- Reduce(function(x, y) expr(!!x + !!y), treatments)
-
     } else{
       aform <- treatment
     }
@@ -170,11 +168,13 @@ rbwPanel <- function(treatment, xmodels, id, time, data,
     res_prods <- Reduce(cbind, mapply(rmat, xmodels, xnames, MoreArgs = list(a = a),
                                       SIMPLIFY = FALSE))
     tmp <- split(data.frame(id, res_prods, check.names = FALSE), time)
+
     # remove columns with all NAs
     tmp <- lapply(tmp, function(df) df[,colSums(is.na(df)) < nrow(df)])
     for(i in seq_along(tmp)){
       names(tmp[[i]])[-1] <- paste(names(tmp[[i]])[-1], i, sep = "_t")
     }
+
     # full_merge sorts rows by id
     res_prods_wide <- as.matrix(Reduce(full_merge, tmp)[-1])
     res_prods_wide[is.na(res_prods_wide)] <- 0
