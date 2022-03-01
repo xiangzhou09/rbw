@@ -19,10 +19,7 @@ Imports:
     stats,
     rlang (>= 0.4.4)
 Suggests:
-    CBPS,
     ebal,
-    ipw,
-    kableExtra,
     knitr,
     survey,
     rmarkdown,
